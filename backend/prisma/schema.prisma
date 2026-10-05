@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  name       String?
+  password   String
+  role       String   @default("user")
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model NotebookEntry {
+  id           String   @id @default(uuid())
+  title        String
+  plant_name   String?
+  location     String?
+  content      String?
+  photo_url    String?
+  drawing_data String?  // Base64 drawing canvas snapshot
+  tags         String?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+}
+
+model Plant {
+  id                String         @id @default(uuid())
+  scientific_name   String         @unique
+  turkish_name      String?
+  english_name      String?
+  alternative_names String?
+  family            String?
+  genus             String?
+  description       String?
+
+  // Fiziksel Özellikler
+  physical_avg_height  String? // Ortalama boy
+  physical_avg_width   String? // Ortalama genişlik
+  physical_growth_form String? // Büyüme şekli (dik, yayılan, sarılan vb.)
+  leaf_description     String? // Yaprak özellikleri
+  flower_description   String? // Çiçek özellikleri
+  flower_color         String? // Çiçek rengi
+  fruit_seed_info      String? // Meyve veya tohum bilgisi
+  flowering_period     String? // Çiçeklenme dönemi
+
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @updatedAt
+
+  care              PlantCare?
+  habitat           PlantHabitat?
+  safety            PlantSafety?
+  usage             PlantUsage?
+  problems          PlantProblem[]
+  images            PlantImage[]
+}
+
+model PlantHabitat {
+  id                 String  @id @default(uuid())
+  plant_id           String  @unique
+  plant              Plant   @relation(fields: [plant_id], references: [id])
+  origin             String? // Kökeni
+  natural_habitat    String? // Doğal yaşam alanı
+  regions            String? // Yaşadığı ülkeler/bölgeler
+  climate_preference String? // İklim tercihi
+  placement          String? // İç mekân / dış mekân uygunluğu
+  landscape_use      String? // Peyzaj kullanımı (park, bahçe, kampüs vb.)
+}
+
+model PlantCare {
+  id                     String  @id @default(uuid())
+  plant_id               String  @unique
+  plant                  Plant   @relation(fields: [plant_id], references: [id])
+  
+  // Işık
+  light_need             String? // Işık ihtiyacı (genel açıklama)
+  light_level            Int?    // Işık seviyesi (1-10)
+  direct_sun_tolerance   String? // Direkt güneşe dayanıklılığı
+  semi_shade_tolerance   String? // Yarı gölge toleransı
+  shade_tolerance        String? // Tam gölge toleransı
+  
+  // Sulama
+  watering_need          String? // Sulama ihtiyacı (genel)
+  watering_summer        String? // Yaz sulama bilgisi
+  watering_winter        String? // Kış sulama bilgisi
+  watering_description   String? // Sulama açıklaması
+  overwatering_risk      String? // Fazla sulama riski
+  excess_water_tolerance String? // Fazla suya dayanıklılık
+  drought_tolerance      String? // Susuzluğa / kuraklığa dayanıklılık
+  
+  // Nem
+  humidity_need          String? // Nem ihtiyacı (genel)
+  humidity_min           Int?    // Minimum nem (%)
+  humidity_ideal         String? // İdeal nem aralığı
+  
+  // Sıcaklık
+  temperature_need       String? // Sıcaklık ihtiyacı
+  temperature_min        Float?  // Minimum sıcaklık (°C)
+  temperature_ideal      String? // İdeal sıcaklık aralığı
+  temperature_max        Float?  // Maksimum sıcaklık (°C)
+  cold_tolerance         String? // Soğuğa dayanıklılık
+  
+  // Toprak
+  soil_type              String? // Toprak türü
+  soil_ph                String? // Toprak pH değeri
+  drainage_need          String? // Drenaj ihtiyacı
+  recommended_soil_mix   String? // Önerilen toprak karışımı
+  
+  // Diğer Bakım Bilgileri
+  fertilizing_info       String? // Gübreleme bilgisi
+  fertilizing_frequency  String? // Gübreleme sıklığı
+  pruning_need           String? // Budama ihtiyacı
+  repotting_info         String? // Saksı değiştirme bilgisi
+  care_difficulty        Int?    // Bakım zorluk seviyesi (1-10)
+}
+
+model PlantUsage {
+  id               String  @id @default(uuid())
+  plant_id         String  @unique
+  plant            Plant   @relation(fields: [plant_id], references: [id])
+  medical_use      String? // Tıbbi kullanım
+  traditional_use  String? // Geleneksel kullanım
+  beekeeping_value String? // Arıcılık / bal üretimi önemi
+  ornamental_use   String? // Süs bitkisi kullanımı
+  landscape_use    String? // Peyzaj kullanımı (habitat'tan farklı olarak kullanım alanı)
+  other_notes      String? // Diğer özel bilgiler / notlar
+}
+
+model PlantSafety {
+  id                String  @id @default(uuid())
+  plant_id          String  @unique
+  plant             Plant   @relation(fields: [plant_id], references: [id])
+  toxicity_humans   String? // İnsanlar için zehirlilik
+  toxicity_cats     String? // Kediler için zehirlilik
+  toxicity_dogs     String? // Köpekler için zehirlilik
+  risk_children     String? // Çocuklar için risk durumu
+  contact_risk      String? // Temas halinde oluşturabileceği riskler
+}
+
+model PlantProblem {
+  id              String  @id @default(uuid())
+  plant_id        String
+  plant           Plant   @relation(fields: [plant_id], references: [id])
+  problem_type    String? // Hastalık, Zararlı, Yaprak Sararması vb.
+  problem_name    String? // Spesifik problem adı
+  symptoms        String? // Belirtiler
+  possible_causes String? // Muhtemel nedenler
+  solutions       String? // Çözüm önerileri
+  prevention      String? // Önleme yöntemleri
+}
+
+model PlantImage {
+  id         String  @id @default(uuid())
+  plant_id   String
+  plant      Plant   @relation(fields: [plant_id], references: [id])
+  image_url  String
+  image_type String? // Örn: 'thumbnail', 'gallery', 'leaf_detail'
+  verified   Boolean @default(true)
+}

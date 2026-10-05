@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* === KOYU ORMAN YEŞİLİ BOTANİK TEMA === */
+
+  /* Arka Planlar */
+  --bg-color: #0c1410;          /* Derin koyu orman yeşili / kömür yeşili */
+  --surface-color: #131f18;     /* Koyu botanik yosun yüzey */
+  --surface-elevated: #18261f;  /* Yükseltilmiş koyu yeşil yüzey */
+  --surface-hover: #203229;     /* Hover koyu yeşil */
+  --border-color: rgba(158, 196, 160, 0.12);
+
+  /* Metinler */
+  --text-primary: #f2efe9;      /* Kırık beyaz / krem */
+  --text-secondary: #bdc5ba;    /* Yumuşak adaçayı kremi */
+  --text-tertiary: #849685;     /* Sakin yeşilimsi ton */
+  --text-muted: #4e6052;        /* Soluk yeşil gri */
+
+  /* === BOTANİK VURGU RENKLERİ === */
+  --accent-green: #82ad76;      /* Doğal orman / adaçayı yeşili */
+  --accent-green-light: #a8caa0;/* Açık adaçayı */
+  --accent-olive: #9ca66b;      /* Zeytin yeşili */
+  --accent-gold: #e5c368;       /* Soluk altın sarısı */
+  --accent-gold-light: #eed588; /* Açık altın */
+  --accent-sage: #a2ba9a;       /* Açık adaçayı */
+  --accent-bej: #c9ba9f;        /* Sıcak bej */
+  --accent-terracotta: #c47660; /* Toprak kırmızısı */
+
+  /* Birincil (yeşil) */
+  --primary: #82ad76;
+  --primary-hover: #9ec592;
+  --primary-dim: rgba(130, 173, 118, 0.14);
+  --primary-light: rgba(130, 173, 118, 0.18);
+
+  /* Semantik */
+  --danger: #c0504a;
+  --danger-light: rgba(192, 80, 74, 0.12);
+  --warning: #e5c368;
+  --warning-light: rgba(229, 195, 104, 0.12);
+  --success: #82ad76;
+
+  /* Yapı */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Gölgeler */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow-green: 0 0 20px rgba(125, 155, 110, 0.15);
+
+  /* Geçişler */
+  --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-fast: 0.15s ease;
+}
+
+/* === RESET === */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  background-color: var(--bg-color);
+}
+
+body {
+  background: #0b130e url('/app-bg.jpg') center center / cover no-repeat fixed;
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(12, 20, 16, 0.75) 0%, rgba(6, 12, 9, 0.88) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* === TİPOGRAFİ === */
+
+/* Başlıklarda Lora (botanik not defteri hissi) */
+h1, h2 {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* Alt başlıklarda Outfit */
+h3, h4 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--accent-sage);
+}
+
+h1 { font-size: 3.2rem; }
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.1rem; }
+
+p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* Botanik başlık fontu — sadece özel alanlarda */
+.font-botanical {
+  font-family: 'Lora', Georgia, serif;
+}
+
+/* === LAYOUT === */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+/* === BUTONLAR === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-full);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.btn-primary {
+  background-color: var(--accent-green);
+  color: #1a1a18;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-green-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-green);
+}
+
+.btn-secondary {
+  background-color: var(--surface-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.btn-ghost {
+  background: none;
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+}
+
+/* === KARTLAR === */
+.info-card {
+  background-color: var(--surface-color);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.info-card:hover {
+  border-color: rgba(125, 155, 110, 0.2);
+  box-shadow: var(--shadow-md);
+}
+
+/* === UPLOAD ALANI === */
+.upload-area {
+  border: 1.5px dashed rgba(201, 168, 76, 0.3);
+  border-radius: var(--radius-xl);
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.02);
+  transition: var(--transition);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-area:hover {
+  border-color: var(--accent-gold);
+  background-color: rgba(201, 168, 76, 0.04);
+}
+
+/* === INPUT === */
+input[type="text"],
+input[type="search"],
+textarea {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--surface-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: var(--transition);
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+  border-color: rgba(125, 155, 110, 0.4);
+  box-shadow: 0 0 0 3px rgba(125, 155, 110, 0.08);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* === CHIP / BADGE === */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.chip-green {
+  background-color: var(--primary-dim);
+  color: var(--accent-green-light);
+}
+
+.chip-gold {
+  background-color: rgba(201, 168, 76, 0.1);
+  color: var(--accent-gold);
+}
+
+.chip-danger {
+  background-color: var(--danger-light);
+  color: #e07070;
+}
+
+/* === AYIRICI === */
+.divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 2rem 0;
+}
+
+/* === ANİMASYONLAR === */
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.animate-enter {
+  animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* === NAVBAR === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text-tertiary);
+  transition: var(--transition-fast);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: var(--surface-elevated);
+}
+
+.nav-link.active {
+  color: var(--accent-sage);
+}
+
+.nav-note-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  color: var(--accent-gold);
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  transition: var(--transition);
+}
+
+.nav-note-btn:hover {
+  background: rgba(201, 168, 76, 0.08);
+  border-color: rgba(201, 168, 76, 0.4);
+}
+
+/* === MOBİL BOTTOM NAV === */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(35, 35, 32, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0.85rem 1.5rem;
+  padding-bottom: env(safe-area-inset-bottom, 0.85rem);
+  border-top: 1px solid var(--border-color);
+  z-index: 50;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  transition: var(--transition-fast);
+}
+
+.mobile-nav-item.active {
+  color: var(--accent-green);
+}
+
+.mobile-nav-fab {
+  background: linear-gradient(135deg, var(--accent-green), var(--accent-olive));
+  color: #1a1a18;
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-glow-green);
+  transform: translateY(-14px);
+}
+
+/* === YARDIMCI SINIFLAR === */
+.text-gold { color: var(--accent-gold); }
+.text-green { color: var(--accent-green); }
+.text-sage { color: var(--accent-sage); }
+.text-bej { color: var(--accent-bej); }
+.text-muted { color: var(--text-muted); }
+
+.bg-surface { background-color: var(--surface-color); }
+.bg-elevated { background-color: var(--surface-elevated); }
+
+/* === SKELETON LOADING === */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-color) 25%,
+    var(--surface-elevated) 50%,
+    var(--surface-color) 75%
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* === RESPONSIVE & BOTANİk DEFTERİ SİLLERİ === */
+.botanical-journal-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+  gap: 3.5rem;
+  align-items: start;
+  margin-bottom: 3.5rem;
+}
+
+.botanical-sidebar {
+  border-left: 1px solid rgba(216, 194, 122, 0.15);
+  padding-left: 2.5rem;
+  padding-top: 0.5rem;
+}
+
+@media (max-width: 860px) {
+  .botanical-journal-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .botanical-sidebar {
+    border-left: none;
+    border-top: 1px solid rgba(216, 194, 122, 0.15);
+    padding-left: 0;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .mobile-nav { display: flex; }
+  body { padding-bottom: 80px; }
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.8rem; }
+}
+
