@@ -104,8 +104,8 @@ exports.analyzePlantImages = async (images) => {
 
   const genAI = new GoogleGenerativeAI(apiKey);
 
-  // Desteklenen model listesi (sırayla denenir)
-  const modelsToTry = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-flash-latest', 'gemini-3-flash-preview', 'gemini-2.5-flash'];
+  // Desteklenen en hızlı model listesi
+  const modelsToTry = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash-exp', 'gemini-flash-latest'];
 
   // Görsel partlarını hazırla
   const imageParts = [];
