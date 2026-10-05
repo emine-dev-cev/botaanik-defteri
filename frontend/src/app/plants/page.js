@@ -209,8 +209,12 @@ export default function PlantsDirectory() {
                 <Link href={`/plants/${plant.id}`} style={{ display: 'block', position: 'relative', height: 210, background: '#0d120f' }}>
                   {plantImg ? (
                     <img
-                      src={plantImg}
+                      src={plantImg.startsWith('http://localhost:3001') ? plantImg.replace('http://localhost:3001', API_URL) : plantImg.startsWith('/uploads') ? `${API_URL}${plantImg}` : plantImg}
                       alt={plant.turkish_name || plant.scientific_name}
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=600&q=80';
+                      }}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   ) : (
