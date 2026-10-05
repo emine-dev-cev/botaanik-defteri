@@ -9,7 +9,7 @@ import {
   Undo2, Layers, Compass
 } from 'lucide-react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://botaanik-defteri.onrender.com';
 
 const COLOR_PALETTE = [
   { name: 'Orman Yeşili', color: '#82ad76' },

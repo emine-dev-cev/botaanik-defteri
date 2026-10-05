@@ -10,7 +10,7 @@ import {
   X, SwitchCamera, RefreshCw
 } from 'lucide-react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://botaanik-defteri.onrender.com';
 
 // Belirsiz alan kontrolü
 const isUncertain = (val) => val === 'BELIRSIZ' || val === 'Belirlenemedi' || val === 'Doğrulanmalı' || val === null || val === undefined || val === '';
