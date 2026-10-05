@@ -4,5 +4,3 @@ node_modules
 cloudflared.exe
 tunnel.js
 -w
-backend/uploads/*
-!backend/uploads/.gitkeep
