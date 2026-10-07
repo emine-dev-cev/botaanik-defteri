@@ -516,7 +516,7 @@ textarea::placeholder {
   }
 }
 
-/* Netlify Rozetini / Logosunu ve Drawer Butonunu Tamamen Yok Et */
+/* Netlify Rozetini / Logosunu ve Drawer Butonunu Ekranın Dışına At ve Gizle */
 netlify-drawer,
 #netlify-drawer,
 [id*="netlify"],
@@ -526,16 +526,22 @@ netlify-drawer,
 iframe[src*="netlify"],
 div[class*="netlify"],
 button[class*="netlify"],
-body > div[style*="position: fixed"][style*="bottom"] {
+div[style*="fixed"][style*="bottom"],
+div[style*="position: fixed"][style*="right"],
+button[style*="position: fixed"][style*="right"] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
   width: 0 !important;
   height: 0 !important;
-  position: absolute !important;
+  position: fixed !important;
   top: -9999px !important;
   left: -9999px !important;
+  bottom: -9999px !important;
+  right: -9999px !important;
+  z-index: -999999 !important;
+  transform: translate(-9999px, -9999px) scale(0) !important;
 }
 
 
