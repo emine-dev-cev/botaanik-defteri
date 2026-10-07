@@ -483,4 +483,21 @@ textarea::placeholder {
   }
 }
 
+/* Netlify Rozetini / Logosunu Tamamen Gizle */
+#netlify-badge,
+[data-netlify-badge],
+.netlify-badge,
+iframe[src*="netlify"],
+div[class*="netlify-badge"],
+button[class*="netlify-badge"],
+[id*="netlify-badge"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+
 
