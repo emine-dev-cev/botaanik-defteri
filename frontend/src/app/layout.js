@@ -148,14 +148,19 @@ export default function RootLayout({ children }) {
           background: 'rgba(15, 20, 17, 0.95)',
           backdropFilter: 'blur(16px)',
           borderTop: '1px solid rgba(143, 164, 134, 0.15)',
-          padding: '0.75rem 1.5rem',
-          justifyContent: 'space-around',
+          padding: '0.65rem 1rem',
+          justifyContent: 'space-between',
           alignItems: 'center',
           zIndex: 100
         }}>
           <Link href="/" className="mobile-nav-item" style={{ textAlign: 'center', color: 'var(--text-secondary)', textDecoration: 'none' }}>
             <Leaf size={20} />
             <div style={{ fontSize: '0.72rem', marginTop: 2 }}>Keşfet</div>
+          </Link>
+
+          <Link href="/plants" className="mobile-nav-item" style={{ textAlign: 'center', color: 'var(--text-secondary)', textDecoration: 'none' }}>
+            <BookOpen size={20} />
+            <div style={{ fontSize: '0.72rem', marginTop: 2 }}>Koleksiyon</div>
           </Link>
 
           <Link href="/identify" className="mobile-nav-fab" style={{
@@ -170,9 +175,14 @@ export default function RootLayout({ children }) {
             <Camera size={22} />
           </Link>
 
-          <Link href="/plants" className="mobile-nav-item" style={{ textAlign: 'center', color: 'var(--text-secondary)', textDecoration: 'none' }}>
-            <BookOpen size={20} />
-            <div style={{ fontSize: '0.72rem', marginTop: 2 }}>Koleksiyon</div>
+          <Link href="/notebook" className="mobile-nav-item" style={{ textAlign: 'center', color: 'var(--accent-gold)', textDecoration: 'none' }}>
+            <NotebookPen size={20} />
+            <div style={{ fontSize: '0.72rem', marginTop: 2 }}>Defterim</div>
+          </Link>
+
+          <Link href="/login" className="mobile-nav-item" style={{ textAlign: 'center', color: 'var(--text-secondary)', textDecoration: 'none' }}>
+            <User size={20} />
+            <div style={{ fontSize: '0.72rem', marginTop: 2 }}>Giriş Yap</div>
           </Link>
         </div>
 
