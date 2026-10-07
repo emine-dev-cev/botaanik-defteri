@@ -463,6 +463,11 @@ textarea::placeholder {
 }
 
 @media (max-width: 768px) {
+  body {
+    background-attachment: scroll !important;
+    background-size: auto 100% !important; /* Mobilde arka planın yakınlaşmasını önler, uzak ve ferah gösterir */
+    background-position: center top !important;
+  }
   .nav-links { display: none !important; }
   .mobile-nav { display: flex !important; }
   body { padding-bottom: 85px; }
