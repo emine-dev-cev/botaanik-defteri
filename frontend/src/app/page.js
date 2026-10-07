@@ -227,6 +227,55 @@ export default function Home() {
               </div>
             </div>
           </Link>
+
+          {/* 5. Giriş Yap & Üye Ol */}
+          <Link href="/login" style={{ display: 'block', textDecoration: 'none' }}>
+            <div style={{
+              background: 'rgba(25, 35, 45, 0.85)',
+              backdropFilter: 'blur(20px)',
+              border: '1.5px solid rgba(96, 165, 250, 0.45)',
+              borderRadius: 'var(--radius-xl)',
+              padding: '2rem 1.4rem',
+              textAlign: 'center',
+              transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+              cursor: 'pointer',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 12px 35px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12)'
+            }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.85)';
+                e.currentTarget.style.transform = 'translateY(-5px)';
+                e.currentTarget.style.boxShadow = '0 18px 45px rgba(96, 165, 250, 0.25)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.45)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12)';
+              }}
+            >
+              <div style={{
+                width: 58, height: 58,
+                borderRadius: '50%',
+                background: 'rgba(96, 165, 250, 0.22)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#60a5fa',
+                marginBottom: '1.1rem',
+                border: '1px solid rgba(96, 165, 250, 0.4)'
+              }}>
+                <Sparkles size={28} strokeWidth={1.6} />
+              </div>
+              <div style={{ fontWeight: 600, fontSize: '1.12rem', color: '#ffffff', marginBottom: '0.4rem', fontFamily: "'Lora', Georgia, serif" }}>
+                Giriş Yap & Üye Ol
+              </div>
+              <div style={{ fontSize: '0.86rem', color: 'var(--text-tertiary)', lineHeight: 1.45 }}>
+                Hesabınıza giriş yapın veya yeni botanik hesabı oluşturun
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
 
