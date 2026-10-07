@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.6rem',
-                fontSize: '1.35rem',
+                fontSize: '1.2rem',
                 fontWeight: '600',
                 fontFamily: "'Lora', Georgia, serif",
                 color: '#f3efe6',
@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
               }}
             >
               <div style={{
-                width: 40, height: 40,
+                width: 38, height: 38,
                 borderRadius: '50%',
                 overflow: 'hidden',
                 border: '1.5px solid rgba(201, 168, 76, 0.6)',
@@ -55,7 +55,29 @@ export default function RootLayout({ children }) {
               }}>
                 <img src="/sunsiree-logo.jpg" alt="Sunsiree Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <span><span style={{ color: 'var(--accent-gold)', fontWeight: 700 }}>Sunsiree</span> Bitki <span style={{ color: 'var(--accent-gold)', fontStyle: 'italic', fontWeight: 400 }}>Dünyası</span></span>
+              <span><span style={{ color: 'var(--accent-gold)', fontWeight: 700 }}>Sunsiree</span> Bitki</span>
+            </Link>
+
+            {/* Mobil & Masaüstü Üst Giriş Yap Butonu */}
+            <Link
+              href="/login"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                fontSize: '0.85rem',
+                color: '#121814',
+                background: 'linear-gradient(135deg, var(--accent-gold), #eed588)',
+                padding: '0.45rem 0.95rem',
+                borderRadius: 'var(--radius-full)',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: '0 4px 14px rgba(229, 195, 104, 0.35)',
+                flexShrink: 0
+              }}
+            >
+              <User size={15} />
+              <span>Giriş Yap</span>
             </Link>
 
             {/* Masaüstü Linkler */}
