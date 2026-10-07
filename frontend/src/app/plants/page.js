@@ -174,11 +174,7 @@ export default function PlantsDirectory() {
           <p style={{ fontSize: '0.95rem', color: 'var(--text-tertiary)' }}>Bitki koleksiyonu yükleniyor...</p>
         </div>
       ) : plants.length > 0 ? (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '1.6rem'
-        }}>
+        <div className="plant-cards-grid">
           {plants.map((plant) => {
             const plantImg = plant.images?.[0]?.image_url;
 

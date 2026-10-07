@@ -1030,11 +1030,7 @@ export default function IdentifyPage() {
             marginBottom: '2rem',
             boxShadow: '0 12px 40px rgba(0,0,0,0.4)'
           }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: previewUrls.length > 0 ? 'minmax(280px, 360px) 1fr' : '1fr',
-              gap: '1.5rem'
-            }}>
+            <div className={previewUrls.length > 0 ? "responsive-media-grid" : ""}>
               {/* Fotoğraf */}
               {previewUrls.length > 0 && (
                 <div style={{ position: 'relative', height: '100%', minHeight: 280, background: '#0a0e0b' }}>
