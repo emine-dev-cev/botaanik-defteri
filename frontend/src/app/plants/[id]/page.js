@@ -319,16 +319,12 @@ export default function PlantDetailPage({ params }) {
               <img
                 src={(() => {
                   const url = plant.images[activeImageIndex]?.image_url || plant.images[0]?.image_url;
-                  if (!url) return 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=600&q=80';
+                  if (!url) return '';
                   if (url.startsWith('http://localhost:3001')) return url.replace('http://localhost:3001', API_URL);
                   if (url.startsWith('/uploads')) return `${API_URL}${url}`;
                   return url;
                 })()}
                 alt={plant.turkish_name || plant.scientific_name}
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src = 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=600&q=80';
-                }}
                 style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#0a0e0b' }}
               />
             ) : (
@@ -419,10 +415,6 @@ export default function PlantDetailPage({ params }) {
                   <img
                     src={img.image_url?.startsWith('http://localhost:3001') ? img.image_url.replace('http://localhost:3001', API_URL) : img.image_url?.startsWith('/uploads') ? `${API_URL}${img.image_url}` : img.image_url}
                     alt="Thumbnail"
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=600&q=80';
-                    }}
                     style={{ width: 28, height: 28, borderRadius: 4, objectFit: 'cover', flexShrink: 0 }}
                   />
                   <span>{img.image_type === 'book_note' ? 'Kitap Notu' : 'Bitki Fotoğrafı'}</span>
