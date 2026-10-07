@@ -207,6 +207,8 @@ export default function PlantsDirectory() {
                     <img
                       src={plantImg.startsWith('http://localhost:3001') ? plantImg.replace('http://localhost:3001', API_URL) : plantImg.startsWith('/uploads') ? `${API_URL}${plantImg}` : plantImg}
                       alt={plant.turkish_name || plant.scientific_name}
+                      loading="lazy"
+                      decoding="async"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   ) : (

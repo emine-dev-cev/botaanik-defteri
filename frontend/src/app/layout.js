@@ -208,10 +208,16 @@ export default function RootLayout({ children }) {
           </Link>
         </div>
 
-        {/* Netlify Rozetini Canlıda Yok Eden Otomatik Script */}
+        {/* Render Sunucusunu Arka Planda Uyandırma & Netlify Rozeti Temizleyici */}
         <script dangerouslySetInnerHTML={{
           __html: `
             (function() {
+              // Render sunucusu uyandırma pinglemesi
+              try {
+                fetch('https://botaanik-defteri.onrender.com/api/plants', { mode: 'no-cors' }).catch(function(){});
+              } catch(e) {}
+
+              // Netlify rozeti temizleyici
               const clean = () => {
                 const badge = document.querySelector('netlify-drawer, #netlify-drawer, [id*="netlify"], [class*="netlify-badge"], iframe[src*="netlify"]');
                 if (badge) badge.remove();

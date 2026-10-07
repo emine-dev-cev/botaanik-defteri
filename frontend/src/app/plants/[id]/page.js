@@ -325,6 +325,8 @@ export default function PlantDetailPage({ params }) {
                   return url;
                 })()}
                 alt={plant.turkish_name || plant.scientific_name}
+                loading="lazy"
+                decoding="async"
                 style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#0a0e0b' }}
               />
             ) : (
