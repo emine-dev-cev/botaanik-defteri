@@ -140,9 +140,9 @@ export default function LoginPage() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexShrink: 0
             }}>
-              <img src="/sunsiree-logo.jpg" alt="Surisee Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/sunsiree-logo.jpg" alt="Sunrise Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-            <span>Surisee Bitki Dünyası</span>
+            <span>Sunrise Bitki Dünyası</span>
           </div>
 
           <h1 style={{

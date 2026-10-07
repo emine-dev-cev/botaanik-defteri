@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Leaf, Camera, BookOpen, NotebookPen, Sparkles, User } from 'lucide-react';
 
 export const metadata = {
-  title: 'Surisee — Bitki Tanıma & Saha Günlüğü',
+  title: 'Sunrise — Bitki Tanıma & Saha Günlüğü',
   description: 'Bitki fotoğraflarını ve el yazısı notları yapay zekâ ile tanı, botanik defterine kaydet.',
 };
 
@@ -53,9 +53,9 @@ export default function RootLayout({ children }) {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0
               }}>
-                <img src="/sunsiree-logo.jpg" alt="Surisee Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="/sunsiree-logo.jpg" alt="Sunrise Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <span><span style={{ color: 'var(--accent-gold)', fontWeight: 700 }}>Surisee</span> Bitki</span>
+              <span><span style={{ color: 'var(--accent-gold)', fontWeight: 700 }}>Sunrise</span> Bitki</span>
             </Link>
 
             {/* Mobil & Masaüstü Üst Giriş Yap Butonu */}
