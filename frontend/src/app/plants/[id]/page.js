@@ -10,7 +10,7 @@ import {
   Loader2, CheckCircle2
 } from 'lucide-react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://botaanik-defteri.onrender.com';
 
 export default function PlantDetailPage({ params }) {
   const router = useRouter();
