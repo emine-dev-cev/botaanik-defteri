@@ -69,7 +69,7 @@ html {
 }
 
 body {
-  background: #0b130e url('/app-bg.jpg') center center / cover no-repeat fixed;
+  background-color: #0b130e;
   color: var(--text-primary);
   font-family: 'Outfit', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -79,13 +79,26 @@ body {
   position: relative;
 }
 
+/* Sabit ve Katmanlı Arka Plan Resmi (Sayfa Boyu ile Uzamaz / Mobilde Yakınlaşmaz) */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/app-bg.jpg') center center / cover no-repeat;
+  z-index: -2;
+  pointer-events: none;
+}
+
 body::before {
   content: '';
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   background: radial-gradient(ellipse at center, rgba(12, 20, 16, 0.75) 0%, rgba(6, 12, 9, 0.88) 100%);
   pointer-events: none;
   z-index: -1;
@@ -463,9 +476,8 @@ textarea::placeholder {
 }
 
 @media (max-width: 768px) {
-  body {
-    background-attachment: scroll !important;
-    background-size: auto 100% !important; /* Mobilde arka planın yakınlaşmasını önler, uzak ve ferah gösterir */
+  body::after {
+    background-size: contain !important; /* Mobilde resmin tamamını uzaktan ve sıkışmadan gösterir */
     background-position: center top !important;
   }
   .nav-links { display: none !important; }
