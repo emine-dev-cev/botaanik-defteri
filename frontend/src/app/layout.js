@@ -174,6 +174,8 @@ export default function RootLayout({ children }) {
             <BookOpen size={20} />
             <div style={{ fontSize: '0.72rem', marginTop: 2 }}>Koleksiyon</div>
           </Link>
+        </div>
+
         {/* Netlify Rozetini Canlıda Yok Eden Otomatik Script */}
         <script dangerouslySetInnerHTML={{
           __html: `
