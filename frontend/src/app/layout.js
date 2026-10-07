@@ -174,7 +174,18 @@ export default function RootLayout({ children }) {
             <BookOpen size={20} />
             <div style={{ fontSize: '0.72rem', marginTop: 2 }}>Koleksiyon</div>
           </Link>
-        </div>
+        {/* Netlify Rozetini Canlıda Yok Eden Otomatik Script */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const clean = () => {
+                const badge = document.querySelector('netlify-drawer, #netlify-drawer, [id*="netlify"], [class*="netlify-badge"], iframe[src*="netlify"]');
+                if (badge) badge.remove();
+              };
+              setInterval(clean, 300);
+            })();
+          `
+        }} />
       </body>
     </html>
   );
