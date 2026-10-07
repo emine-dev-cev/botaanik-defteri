@@ -7,6 +7,12 @@ export const metadata = {
   description: 'Bitki fotoğraflarını ve el yazısı notları yapay zekâ ile tanı, botanik defterine kaydet.',
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="tr">
