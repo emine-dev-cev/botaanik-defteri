@@ -222,15 +222,44 @@ export default function RootLayout({ children }) {
             (function() {
               // Render sunucusu uyandırma pinglemesi
               try {
-                fetch('https://botaanik-defteri.onrender.com/api/plants', { mode: 'no-cors' }).catch(function(){});
+                fetch('https://botaanik-defteri.onrender.com/api/health', { mode: 'no-cors' }).catch(function(){});
               } catch(e) {}
 
-              // Netlify rozeti temizleyici
-              const clean = () => {
-                const badge = document.querySelector('netlify-drawer, #netlify-drawer, [id*="netlify"], [class*="netlify-badge"], iframe[src*="netlify"]');
-                if (badge) badge.remove();
-              };
-              setInterval(clean, 300);
+              // Netlify rozeti - tüm olası seçiciler
+              function removeNetlify() {
+                var selectors = [
+                  'netlify-drawer',
+                  '[id^="netlify"]',
+                  '[class*="netlify"]',
+                  'iframe[src*="netlify"]',
+                  'a[href*="netlify.com"]',
+                  '[data-netlify]',
+                  'div[style*="position: fixed"][style*="bottom"]',
+                ];
+                selectors.forEach(function(sel) {
+                  try {
+                    document.querySelectorAll(sel).forEach(function(el) {
+                      // Sadece Netlify rozeti olan elementleri kaldır
+                      var text = el.textContent || '';
+                      var href = el.getAttribute && (el.getAttribute('href') || '');
+                      var src  = el.getAttribute && (el.getAttribute('src')  || '');
+                      if (text.toLowerCase().indexOf('netlify') !== -1 ||
+                          href.indexOf('netlify') !== -1 ||
+                          src.indexOf('netlify') !== -1) {
+                        el.remove();
+                      }
+                    });
+                  } catch(e) {}
+                });
+              }
+
+              // DOM hazır olunca çalıştır
+              removeNetlify();
+              document.addEventListener('DOMContentLoaded', removeNetlify);
+
+              // Yeni elementler eklendikçe sürekli izle (MutationObserver)
+              var observer = new MutationObserver(function() { removeNetlify(); });
+              observer.observe(document.documentElement, { childList: true, subtree: true });
             })();
           `
         }} />
