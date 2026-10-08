@@ -65,11 +65,11 @@
 }
 
 html {
-  background-color: var(--bg-color);
+  background-color: #0b130e;
 }
 
 body {
-  background-color: #0b130e;
+  background-color: transparent !important;
   color: var(--text-primary);
   font-family: 'Outfit', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -79,9 +79,8 @@ body {
   position: relative;
 }
 
-/* Sabit Arka Plan — Nilüfer Yağlı Boya Tablosu (lotus-bg.jpg) */
-body::after {
-  content: '';
+/* Sabit Arka Plan Görseli & Katmanları */
+.bg-image-fixed {
   position: fixed;
   top: 0;
   left: 0;
@@ -95,24 +94,22 @@ body::after {
   pointer-events: none;
 }
 
-@media (max-width: 768px) {
-  body::after {
-    background-position: center top;
-    background-size: contain;
-    background-repeat: repeat-y;
-  }
-}
-
-body::before {
-  content: '';
+.bg-image-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(ellipse at center, rgba(12, 20, 16, 0.45) 0%, rgba(6, 12, 9, 0.75) 100%);
-  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(ellipse at center, rgba(12, 20, 16, 0.4) 0%, rgba(6, 12, 9, 0.72) 100%);
   z-index: -1;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .bg-image-fixed {
+    background-position: center top;
+    background-size: cover;
+  }
 }
 
 

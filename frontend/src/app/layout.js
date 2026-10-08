@@ -25,6 +25,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="tr">
       <body>
+        {/* Sabit Arka Plan Görseli & Şeffaf Botanik Karartma Katmanı */}
+        <div className="bg-image-fixed" />
+        <div className="bg-image-overlay" />
+
         <header className="container" style={{ paddingTop: '1.25rem' }}>
           <nav className="navbar animate-enter" style={{
             display: 'flex',
