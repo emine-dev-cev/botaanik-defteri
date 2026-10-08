@@ -998,11 +998,11 @@ export default function NotebookPage() {
                     gap: '0.8rem'
                   }}>
                     {/* ARAÇ SATIRI 1: Doku (Paper Style) & Şablon Damgaları */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.6rem', borderBottom: '1px solid rgba(143, 164, 134, 0.15)', paddingBottom: '0.6rem' }}>
-                      
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', borderBottom: '1px solid rgba(143, 164, 134, 0.15)', paddingBottom: '0.6rem' }}>
+
                       {/* Kağıt Dokusu */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        <span style={{ fontSize: '0.74rem', color: 'var(--accent-sage)', fontWeight: 600 }}>Doku:</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '0.74rem', color: 'var(--accent-sage)', fontWeight: 600, flexShrink: 0 }}>Doku:</span>
                         {[
                           { id: 'dark', label: 'Koyu Botanik', icon: <File size={13} /> },
                           { id: 'grid', label: 'Kareli Defter', icon: <Grid size={13} /> },
@@ -1013,14 +1013,15 @@ export default function NotebookPage() {
                             type="button"
                             onClick={() => { setPaperStyle(p.id); initCanvas(p.id); }}
                             style={{
-                              padding: '0.25rem 0.65rem',
+                              padding: '0.25rem 0.55rem',
                               borderRadius: 'var(--radius-sm)',
                               border: '1px solid ' + (paperStyle === p.id ? 'var(--accent-gold)' : 'rgba(255,255,255,0.15)'),
                               background: paperStyle === p.id ? 'rgba(201, 168, 76, 0.25)' : 'rgba(255,255,255,0.04)',
                               color: paperStyle === p.id ? 'var(--accent-gold)' : 'var(--text-tertiary)',
-                              fontSize: '0.74rem',
+                              fontSize: '0.72rem',
                               display: 'flex', alignItems: 'center', gap: '0.3rem',
-                              cursor: 'pointer'
+                              cursor: 'pointer',
+                              whiteSpace: 'nowrap'
                             }}
                           >
                             {p.icon}
@@ -1030,21 +1031,21 @@ export default function NotebookPage() {
                       </div>
 
                       {/* Şablon Damgaları (Stamps) */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        <span style={{ fontSize: '0.74rem', color: 'var(--accent-gold)', fontWeight: 600 }}>Şablon:</span>
-                        <button type="button" onClick={() => addBotanicalStamp('leaf')} title="Yaprak Şablonu" style={{ padding: '0.25rem 0.5rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(201, 168, 76, 0.3)', background: 'rgba(201, 168, 76, 0.15)', color: '#82ad76', fontSize: '0.74rem', cursor: 'pointer' }}>🌿 Yaprak</button>
-                        <button type="button" onClick={() => addBotanicalStamp('flower')} title="Çiçek Şablonu" style={{ padding: '0.25rem 0.5rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(201, 168, 76, 0.3)', background: 'rgba(201, 168, 76, 0.15)', color: '#c47660', fontSize: '0.74rem', cursor: 'pointer' }}>🌸 Çiçek</button>
-                        <button type="button" onClick={() => addBotanicalStamp('pot')} title="Saksı Şablonu" style={{ padding: '0.25rem 0.5rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(201, 168, 76, 0.3)', background: 'rgba(201, 168, 76, 0.15)', color: '#e5c368', fontSize: '0.74rem', cursor: 'pointer' }}>🪴 Saksı</button>
-                        <button type="button" onClick={() => addBotanicalStamp('stem')} title="Dal Şablonu" style={{ padding: '0.25rem 0.5rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(201, 168, 76, 0.3)', background: 'rgba(201, 168, 76, 0.15)', color: '#a2ba9a', fontSize: '0.74rem', cursor: 'pointer' }}>🌳 Dal</button>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '0.74rem', color: 'var(--accent-gold)', fontWeight: 600, flexShrink: 0 }}>Şablon:</span>
+                        <button type="button" onClick={() => addBotanicalStamp('leaf')} style={{ padding: '0.25rem 0.5rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(201, 168, 76, 0.3)', background: 'rgba(201, 168, 76, 0.15)', color: '#82ad76', fontSize: '0.72rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>🌿 Yaprak</button>
+                        <button type="button" onClick={() => addBotanicalStamp('flower')} style={{ padding: '0.25rem 0.5rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(201, 168, 76, 0.3)', background: 'rgba(201, 168, 76, 0.15)', color: '#c47660', fontSize: '0.72rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>🌸 Çiçek</button>
+                        <button type="button" onClick={() => addBotanicalStamp('pot')} style={{ padding: '0.25rem 0.5rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(201, 168, 76, 0.3)', background: 'rgba(201, 168, 76, 0.15)', color: '#e5c368', fontSize: '0.72rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>🪴 Saksı</button>
+                        <button type="button" onClick={() => addBotanicalStamp('stem')} style={{ padding: '0.25rem 0.5rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(201, 168, 76, 0.3)', background: 'rgba(201, 168, 76, 0.15)', color: '#a2ba9a', fontSize: '0.72rem', cursor: 'pointer', whiteSpace: 'nowrap' }}>🌳 Dal</button>
                       </div>
 
                     </div>
 
-                    {/* ARAÇ SATIRI 2: Mod (Fırça, Çizgi, Daire, Dikdörtgen), Silgi, Geri Al, Temizle */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.6rem', background: 'rgba(20, 30, 24, 0.7)', padding: '0.5rem 0.8rem', borderRadius: 'var(--radius-md)' }}>
-                      
+                    {/* ARAÇ SATIRI 2: Mod + Kontrol Butonları */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', background: 'rgba(20, 30, 24, 0.7)', padding: '0.5rem 0.8rem', borderRadius: 'var(--radius-md)' }}>
+
                       {/* Çizim Modları */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexWrap: 'wrap' }}>
                         {[
                           { id: 'brush', label: 'Serbest', icon: <Edit3 size={13} /> },
                           { id: 'line', label: 'Çizgi', icon: <Minus size={13} /> },
@@ -1061,20 +1062,17 @@ export default function NotebookPage() {
                               border: '1px solid ' + (!isEraser && toolMode === t.id ? 'var(--accent-green)' : 'rgba(255,255,255,0.15)'),
                               background: !isEraser && toolMode === t.id ? 'rgba(125, 155, 110, 0.3)' : 'transparent',
                               color: !isEraser && toolMode === t.id ? '#ffffff' : 'var(--text-secondary)',
-                              fontSize: '0.76rem',
+                              fontSize: '0.74rem',
                               display: 'flex', alignItems: 'center', gap: '0.3rem',
-                              cursor: 'pointer'
+                              cursor: 'pointer',
+                              whiteSpace: 'nowrap'
                             }}
                           >
                             {t.icon}
                             {t.label}
                           </button>
                         ))}
-                      </div>
 
-                      {/* Silgi, Geri Al & Temizle */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        
                         {/* Silgi */}
                         <button
                           type="button"
@@ -1085,9 +1083,10 @@ export default function NotebookPage() {
                             border: '1px solid ' + (isEraser ? '#f87171' : 'rgba(255,255,255,0.15)'),
                             background: isEraser ? 'rgba(239, 68, 68, 0.25)' : 'transparent',
                             color: isEraser ? '#fca5a5' : 'var(--text-tertiary)',
-                            fontSize: '0.76rem',
+                            fontSize: '0.74rem',
                             display: 'flex', alignItems: 'center', gap: '0.3rem',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap'
                           }}
                         >
                           <Eraser size={13} />
@@ -1106,9 +1105,10 @@ export default function NotebookPage() {
                             border: '1px solid rgba(255,255,255,0.15)',
                             background: historyStack.length > 0 ? 'rgba(201, 168, 76, 0.15)' : 'transparent',
                             color: historyStack.length > 0 ? 'var(--accent-gold)' : 'rgba(255,255,255,0.2)',
-                            fontSize: '0.76rem',
+                            fontSize: '0.74rem',
                             display: 'flex', alignItems: 'center', gap: '0.3rem',
-                            cursor: historyStack.length > 0 ? 'pointer' : 'default'
+                            cursor: historyStack.length > 0 ? 'pointer' : 'default',
+                            whiteSpace: 'nowrap'
                           }}
                         >
                           <Undo2 size={13} />
@@ -1126,9 +1126,10 @@ export default function NotebookPage() {
                             border: '1px solid rgba(255,255,255,0.15)',
                             background: 'transparent',
                             color: 'var(--text-tertiary)',
-                            fontSize: '0.76rem',
+                            fontSize: '0.74rem',
                             display: 'flex', alignItems: 'center', gap: '0.3rem',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap'
                           }}
                         >
                           <RotateCcw size={13} />
