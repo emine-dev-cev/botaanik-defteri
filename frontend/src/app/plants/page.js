@@ -9,28 +9,42 @@ import {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://botaanik-defteri.onrender.com';
 
+// Basit bellek önbelleği — sayfa geçişlerinde anında açılır
+let _plantsCache = null;
+let _plantsCacheTime = 0;
+const CACHE_TTL = 60_000; // 60 saniye
+
 export default function PlantsDirectory() {
   const router = useRouter();
-  const [plants, setPlants] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [plants, setPlants] = useState(_plantsCache || []);
+  const [isLoading, setIsLoading] = useState(!_plantsCache);
   const [search, setSearch] = useState('');
   const [deletingId, setDeletingId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState(null);
 
   const fetchPlants = async (searchTerm = '') => {
-    setIsLoading(true);
+    const now = Date.now();
+    // Önbellekten getir (hızlı açılış) ve arka planda güncelle
+    if (!searchTerm && _plantsCache && (now - _plantsCacheTime) < CACHE_TTL) {
+      setPlants(_plantsCache);
+      setIsLoading(false);
+    } else {
+      if (!_plantsCache) setIsLoading(true);
+    }
     try {
       const url = searchTerm.trim()
         ? `${API_URL}/api/plants?q=${encodeURIComponent(searchTerm.trim())}`
         : `${API_URL}/api/plants`;
-      const res = await fetch(url, { cache: 'no-store' });
+      const res = await fetch(url);
       if (!res.ok) throw new Error('Bitkiler alınamadı.');
       const data = await res.json();
-      setPlants(Array.isArray(data) ? data : []);
+      const list = Array.isArray(data) ? data : [];
+      if (!searchTerm) { _plantsCache = list; _plantsCacheTime = Date.now(); }
+      setPlants(list);
     } catch (err) {
       console.error('Bitki listeleme hatası:', err);
-      setPlants([]);
+      if (!_plantsCache) setPlants([]);
     } finally {
       setIsLoading(false);
     }

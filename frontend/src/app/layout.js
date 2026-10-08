@@ -5,6 +5,14 @@ import { Leaf, Camera, BookOpen, NotebookPen, Sparkles, User } from 'lucide-reac
 export const metadata = {
   title: 'Sunrise — Bitki Tanıma & Saha Günlüğü',
   description: 'Bitki fotoğraflarını ve el yazısı notları yapay zekâ ile tanı, botanik defterine kaydet.',
+  other: {
+    'link': [
+      '<link rel="preconnect" href="https://botaanik-defteri.onrender.com" crossorigin="anonymous">',
+      '<link rel="dns-prefetch" href="https://botaanik-defteri.onrender.com">',
+      '<link rel="preconnect" href="https://fonts.googleapis.com">',
+      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">',
+    ]
+  }
 };
 
 export const viewport = {

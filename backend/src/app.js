@@ -2,6 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
+// Sıkıştırma varsa kullan (yoksa geç)
+let compression;
+try { compression = require('compression'); } catch(e) { compression = null; }
+
 const plantRoutes = require('./routes/plants');
 const identifyRoutes = require('./routes/identify');
 const noteAnalysisRoutes = require('./routes/noteAnalysis');
@@ -10,13 +14,20 @@ const notebookRoutes = require('./routes/notebook');
 
 const app = express();
 
+// Gzip sıkıştırma (yanıt boyutunu %70 küçültür, hız artar)
+if (compression) app.use(compression());
+
 // Middleware
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-// Static uploads directory
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+// Static uploads - agresif cache (1 yıl - resimler değişmiyor)
+app.use('/uploads', express.static(path.join(__dirname, '../uploads'), {
+  maxAge: '365d',
+  etag: true,
+  lastModified: true
+}));
 
 // Routes
 app.use('/api/plants', plantRoutes);
