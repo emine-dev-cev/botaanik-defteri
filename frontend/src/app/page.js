@@ -42,7 +42,7 @@ export default function Home() {
         {/* ─── EVRENSEL HIZLI BİTKİ ARAMA ÇUBUĞU ─── */}
         <div style={{ maxWidth: '680px', margin: '0 auto 3rem' }}>
           <form onSubmit={handleSearch}>
-            <div style={{
+            <div className="hero-search-wrapper" style={{
               display: 'flex',
               alignItems: 'center',
               background: 'rgba(20, 32, 25, 0.95)',
@@ -55,7 +55,7 @@ export default function Home() {
               <Search size={22} style={{ color: 'var(--accent-gold)', flexShrink: 0, marginRight: '0.8rem' }} />
               <input
                 type="text"
-                placeholder="Herhangi bir bitkiyi arayın... (Örn: Zeytin, Lavanta, Monstera, Mavi Ladin)"
+                placeholder="Herhangi bir bitkiyi arayın... (Örn: Zeytin, Lavanta)"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -65,7 +65,8 @@ export default function Home() {
                   outline: 'none',
                   color: '#ffffff',
                   fontSize: '1rem',
-                  fontFamily: "'Outfit', sans-serif"
+                  fontFamily: "'Outfit', sans-serif",
+                  minWidth: '120px'
                 }}
               />
               {searchQuery && (
@@ -90,7 +91,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={!searchQuery.trim()}
-                className="btn btn-primary"
+                className="btn btn-primary hero-search-btn"
                 style={{
                   padding: '0.7rem 1.5rem',
                   fontSize: '0.92rem',

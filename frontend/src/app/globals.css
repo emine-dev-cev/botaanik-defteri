@@ -69,7 +69,7 @@ html {
 }
 
 body {
-  background: #0b130e url('/app-bg.jpg') center center / cover no-repeat fixed;
+  background-color: transparent !important;
   color: var(--text-primary);
   font-family: 'Outfit', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -79,16 +79,34 @@ body {
   position: relative;
 }
 
-body::before {
-  content: '';
+/* Sabit Arka Plan Görseli & Şeffaf Botanik Katmanı — Mobilde ve Masaüstünde Asla Zoom Yapmaz */
+.bg-image-fixed {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(ellipse at center, rgba(12, 20, 16, 0.75) 0%, rgba(6, 12, 9, 0.88) 100%);
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-image: url('/lotus-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: -2;
   pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+.bg-image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: radial-gradient(ellipse at center, rgba(12, 20, 16, 0.40) 0%, rgba(6, 12, 9, 0.76) 100%);
   z-index: -1;
+  pointer-events: none;
 }
 
 a {
@@ -465,8 +483,28 @@ textarea::placeholder {
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .mobile-nav { display: flex; }
-  body { padding-bottom: 80px; }
-  h1 { font-size: 2.2rem; }
-  h2 { font-size: 1.8rem; }
+  body { padding-bottom: 90px; }
+  .container { padding: 0 1rem; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.6rem; }
+
+  /* Mobilde nilüfer tablosu ekranın üstüne zarifçe odaklanır ve asla zoom bozulması yapmaz */
+  .bg-image-fixed {
+    background-position: center 25%;
+    background-size: cover;
+  }
+  .bg-image-overlay {
+    background: radial-gradient(ellipse at center, rgba(12, 20, 16, 0.44) 0%, rgba(6, 12, 9, 0.82) 100%);
+  }
+
+  /* Mobil Hızlı Arama Kutusu */
+  .hero-search-wrapper {
+    padding: 0.35rem 0.45rem 0.35rem 1rem !important;
+  }
+  .hero-search-btn {
+    padding: 0.6rem 1rem !important;
+    font-size: 0.85rem !important;
+  }
 }
+
 

@@ -675,7 +675,7 @@ export default function PlantSelectPage() {
       {/* ─── EVRENSEL BİTKİ ARAMA ÇUBUĞU & ANSİKLOPEDİ ─── */}
       <div style={{ maxWidth: '840px', margin: '0 auto 3rem' }}>
         <form onSubmit={(e) => { e.preventDefault(); handleSearchPlant(); }}>
-          <div style={{
+          <div className="hero-search-wrapper" style={{
             display: 'flex',
             alignItems: 'center',
             background: 'rgba(20, 32, 25, 0.95)',
@@ -688,7 +688,7 @@ export default function PlantSelectPage() {
             <Search size={22} style={{ color: 'var(--accent-gold)', flexShrink: 0, marginRight: '0.8rem' }} />
             <input
               type="text"
-              placeholder="Merak ettiğiniz herhangi bir bitkiyi arayın... (Örn: Zeytin, Lavanta, Paşa Kılıcı, Monstera, Gül, Mavi Ladin)"
+              placeholder="Herhangi bir bitkiyi arayın... (Örn: Zeytin, Lavanta)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
@@ -698,7 +698,8 @@ export default function PlantSelectPage() {
                 outline: 'none',
                 color: '#ffffff',
                 fontSize: '1rem',
-                fontFamily: "'Outfit', sans-serif"
+                fontFamily: "'Outfit', sans-serif",
+                minWidth: '120px'
               }}
             />
             {searchQuery && (
@@ -723,7 +724,7 @@ export default function PlantSelectPage() {
             <button
               type="submit"
               disabled={isSearching || !searchQuery.trim()}
-              className="btn btn-primary"
+              className="btn btn-primary hero-search-btn"
               style={{
                 padding: '0.7rem 1.6rem',
                 fontSize: '0.92rem',
