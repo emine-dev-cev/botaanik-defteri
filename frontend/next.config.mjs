@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  allowedDevOrigins: ['*.loca.lt'],
+  /* config options here */
 };
 
 export default nextConfig;

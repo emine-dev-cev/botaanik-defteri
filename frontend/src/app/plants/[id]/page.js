@@ -10,7 +10,7 @@ import {
   Loader2, CheckCircle2
 } from 'lucide-react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://botaanik-defteri.onrender.com';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export default function PlantDetailPage({ params }) {
   const router = useRouter();
@@ -317,16 +317,8 @@ export default function PlantDetailPage({ params }) {
           }}>
             {plant.images && plant.images.length > 0 ? (
               <img
-                src={(() => {
-                  const url = plant.images[activeImageIndex]?.image_url || plant.images[0]?.image_url;
-                  if (!url) return '';
-                  if (url.startsWith('http://localhost:3001')) return url.replace('http://localhost:3001', API_URL);
-                  if (url.startsWith('/uploads')) return `${API_URL}${url}`;
-                  return url;
-                })()}
+                src={plant.images[activeImageIndex]?.image_url || plant.images[0]?.image_url}
                 alt={plant.turkish_name || plant.scientific_name}
-                loading="lazy"
-                decoding="async"
                 style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#0a0e0b' }}
               />
             ) : (
@@ -415,7 +407,7 @@ export default function PlantDetailPage({ params }) {
                   }}
                 >
                   <img
-                    src={img.image_url?.startsWith('http://localhost:3001') ? img.image_url.replace('http://localhost:3001', API_URL) : img.image_url?.startsWith('/uploads') ? `${API_URL}${img.image_url}` : img.image_url}
+                    src={img.image_url}
                     alt="Thumbnail"
                     style={{ width: 28, height: 28, borderRadius: 4, objectFit: 'cover', flexShrink: 0 }}
                   />

@@ -7,7 +7,7 @@ import {
   AlertTriangle, Eye, EyeOff, Loader2, Sparkles, LogIn, UserPlus
 } from 'lucide-react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://botaanik-defteri.onrender.com';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -78,14 +78,17 @@ export default function LoginPage() {
   return (
     <div className="animate-enter" style={{
       position: 'relative',
-      width: '100%',
-      minHeight: 'calc(100vh - 120px)',
+      width: '100vw',
+      minHeight: 'calc(100vh - 90px)',
+      marginLeft: 'calc(-50vw + 50%)',
+      marginRight: 'calc(-50vw + 50%)',
+      marginTop: '-2rem',
+      marginBottom: '-5rem',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '1.5rem 0.75rem',
+      padding: '3rem 1.5rem',
       background: "url('/login-bg.jpg') center center / cover no-repeat",
-      borderRadius: 'var(--radius-xl)',
       overflow: 'hidden'
     }}>
 
@@ -93,7 +96,7 @@ export default function LoginPage() {
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'radial-gradient(ellipse at center, rgba(12, 22, 16, 0.3) 0%, rgba(6, 12, 9, 0.75) 100%)',
+        background: 'radial-gradient(ellipse at center, rgba(12, 22, 16, 0.2) 0%, rgba(6, 12, 9, 0.55) 100%)',
         zIndex: 1
       }} />
 
@@ -103,12 +106,12 @@ export default function LoginPage() {
         zIndex: 2,
         width: '100%',
         maxWidth: '460px',
-        background: 'rgba(15, 23, 18, 0.78)',
+        background: 'rgba(15, 23, 18, 0.48)',
         backdropFilter: 'blur(24px) saturate(180%)',
         WebkitBackdropFilter: 'blur(24px) saturate(180%)',
         border: '1px solid rgba(255, 255, 255, 0.22)',
-        borderRadius: '24px',
-        padding: 'clamp(1.5rem, 5vw, 2.5rem) clamp(1.1rem, 4vw, 2.2rem)',
+        borderRadius: '28px',
+        padding: '2.5rem 2.2rem',
         boxShadow: '0 30px 80px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
         transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
       }}>
@@ -140,9 +143,9 @@ export default function LoginPage() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexShrink: 0
             }}>
-              <img src="/sunsiree-logo.jpg" alt="Sunrise Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/sunsiree-logo.jpg" alt="Sunsiree Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-            <span>Sunrise Bitki Dünyası</span>
+            <span>Sunsiree Bitki Dünyası</span>
           </div>
 
           <h1 style={{

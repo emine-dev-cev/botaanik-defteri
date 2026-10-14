@@ -65,11 +65,11 @@
 }
 
 html {
-  background-color: #0b130e;
+  background-color: var(--bg-color);
 }
 
 body {
-  background-color: transparent !important;
+  background: #0b130e url('/app-bg.jpg') center center / cover no-repeat fixed;
   color: var(--text-primary);
   font-family: 'Outfit', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -79,39 +79,17 @@ body {
   position: relative;
 }
 
-/* Sabit Arka Plan Görseli & Katmanları */
-.bg-image-fixed {
+body::before {
+  content: '';
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url('/lotus-bg.jpg');
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: -2;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(12, 20, 16, 0.75) 0%, rgba(6, 12, 9, 0.88) 100%);
   pointer-events: none;
-}
-
-.bg-image-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: radial-gradient(ellipse at center, rgba(12, 20, 16, 0.4) 0%, rgba(6, 12, 9, 0.72) 100%);
   z-index: -1;
-  pointer-events: none;
 }
-
-@media (max-width: 768px) {
-  .bg-image-fixed {
-    background-position: center top;
-    background-size: cover;
-  }
-}
-
 
 a {
   color: inherit;
@@ -485,90 +463,10 @@ textarea::placeholder {
 }
 
 @media (max-width: 768px) {
-  body::after {
-    background-size: contain !important; /* Mobilde resmin tamamını uzaktan ve sıkışmadan gösterir */
-    background-position: center top !important;
-  }
-  .nav-links { display: none !important; }
-  .mobile-nav { display: flex !important; }
-  body { padding-bottom: 85px; }
-  .container { padding: 0 0.85rem !important; }
-  h1 { font-size: clamp(1.6rem, 6vw, 2.2rem) !important; }
-  h2 { font-size: clamp(1.3rem, 5vw, 1.8rem) !important; }
-  h3 { font-size: clamp(1.1rem, 4vw, 1.4rem) !important; }
-  .navbar {
-    padding: 0.6rem 0.9rem !important;
-    border-radius: 16px !important;
-  }
-  .btn {
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-  input, select, textarea {
-    font-size: 16px !important; /* Mobil tarayıcılarda otomatik yakınlaştırmayı engeller */
-  }
+  .nav-links { display: none; }
+  .mobile-nav { display: flex; }
+  body { padding-bottom: 80px; }
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.8rem; }
 }
-
-/* === BİTKİ KOLEKSİYONU MOBİL 2'Lİ GRID VE SAYFA DÜZENİ === */
-.plant-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
-}
-
-.responsive-media-grid {
-  display: grid;
-  grid-template-columns: minmax(280px, 360px) 1fr;
-  gap: 1.5rem;
-}
-
-@media (max-width: 768px) {
-  .plant-cards-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.75rem !important;
-  }
-  .responsive-media-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .plant-cards-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.6rem !important;
-  }
-  .responsive-media-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* Netlify Rozetini / Logosunu ve Drawer Butonunu Ekranın Dışına At ve Gizle */
-netlify-drawer,
-#netlify-drawer,
-[id*="netlify"],
-[class*="netlify"],
-[data-netlify-badge],
-.netlify-badge,
-iframe[src*="netlify"],
-div[class*="netlify"],
-button[class*="netlify"],
-div[style*="fixed"][style*="bottom"],
-div[style*="position: fixed"][style*="right"],
-button[style*="position: fixed"][style*="right"] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  position: fixed !important;
-  top: -9999px !important;
-  left: -9999px !important;
-  bottom: -9999px !important;
-  right: -9999px !important;
-  z-index: -999999 !important;
-  transform: translate(-9999px, -9999px) scale(0) !important;
-}
-
-
 

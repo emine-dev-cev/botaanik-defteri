@@ -1,13 +1,28 @@
 "use client";
+import { useState } from 'react';
 import Link from 'next/link';
-import { Camera, NotebookPen, Leaf, Sparkles, Droplet, Sun, BookOpen, ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Camera, NotebookPen, Leaf, Sparkles, Droplet, Sun, BookOpen, ArrowRight, Compass, Search, X } from 'lucide-react';
 
 export default function Home() {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (e) => {
+    if (e) e.preventDefault();
+    if (!searchQuery.trim()) return;
+    router.push(`/plant-select?q=${encodeURIComponent(searchQuery.trim())}`);
+  };
+
+  const handleChipClick = (name) => {
+    router.push(`/plant-select?q=${encodeURIComponent(name)}`);
+  };
+
   return (
     <div className="animate-enter" style={{ paddingTop: '2.5rem', paddingBottom: '4rem' }}>
 
       {/* ─── HERO BÖLÜMÜ ─── */}
-      <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 4.5rem' }}>
+      <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 4rem' }}>
 
         {/* Dekoratif Rozet */}
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(125,155,110,0.12)', border: '1px solid rgba(125,155,110,0.25)', padding: '0.4rem 1rem', borderRadius: 'var(--radius-full)', color: 'var(--accent-green)', fontSize: '0.82rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
@@ -20,9 +35,117 @@ export default function Home() {
           <span style={{ color: 'var(--accent-gold)', fontStyle: 'italic', fontWeight: 500 }}>Keşfet & Kaydet</span>
         </h1>
 
-        <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', maxWidth: '620px', margin: '0 auto 3rem', lineHeight: 1.6 }}>
-          Bitki fotoğraflarını yükleyin, el yazısı saha notlarınızı analiz ettirin ve kişisel botanik defterinizde çizimlerinizle birlikte saklayın.
+        <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', maxWidth: '620px', margin: '0 auto 2.2rem', lineHeight: 1.6 }}>
+          Bitki fotoğraflarını yükleyin, el yazısı saha notlarınızı analiz ettirin veya merak ettiğiniz herhangi bir bitkiyi arayarak tüm bakım ve ekolojik bilgilerini öğrenin.
         </p>
+
+        {/* ─── EVRENSEL HIZLI BİTKİ ARAMA ÇUBUĞU ─── */}
+        <div style={{ maxWidth: '680px', margin: '0 auto 3rem' }}>
+          <form onSubmit={handleSearch}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              background: 'rgba(20, 32, 25, 0.95)',
+              border: '1.5px solid rgba(201, 168, 76, 0.5)',
+              borderRadius: 'var(--radius-full)',
+              padding: '0.45rem 0.6rem 0.45rem 1.4rem',
+              boxShadow: '0 10px 35px rgba(0,0,0,0.45), 0 0 25px rgba(201, 168, 76, 0.18)',
+              transition: 'var(--transition)'
+            }}>
+              <Search size={22} style={{ color: 'var(--accent-gold)', flexShrink: 0, marginRight: '0.8rem' }} />
+              <input
+                type="text"
+                placeholder="Herhangi bir bitkiyi arayın... (Örn: Zeytin, Lavanta, Monstera, Mavi Ladin)"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  flex: 1,
+                  background: 'transparent',
+                  border: 'none',
+                  outline: 'none',
+                  color: '#ffffff',
+                  fontSize: '1rem',
+                  fontFamily: "'Outfit', sans-serif"
+                }}
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--text-tertiary)',
+                    cursor: 'pointer',
+                    padding: '0.4rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginRight: '0.4rem'
+                  }}
+                  title="Temizle"
+                >
+                  <X size={18} />
+                </button>
+              )}
+              <button
+                type="submit"
+                disabled={!searchQuery.trim()}
+                className="btn btn-primary"
+                style={{
+                  padding: '0.7rem 1.5rem',
+                  fontSize: '0.92rem',
+                  fontWeight: 700,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  borderRadius: 'var(--radius-full)',
+                  background: 'linear-gradient(135deg, var(--accent-gold), #eed588)',
+                  color: '#121814',
+                  boxShadow: '0 4px 15px rgba(201, 168, 76, 0.35)',
+                  cursor: !searchQuery.trim() ? 'not-allowed' : 'pointer',
+                  opacity: !searchQuery.trim() ? 0.65 : 1,
+                  flexShrink: 0
+                }}
+              >
+                <Sparkles size={16} />
+                <span>Bitkiyi Ara</span>
+              </button>
+            </div>
+          </form>
+
+          {/* Popüler Bitki Önerileri */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '0.45rem',
+            marginTop: '0.85rem'
+          }}>
+            <span style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)' }}>Hızlı Arama:</span>
+            {['Zeytin Ağacı', 'Lavanta', 'Paşa Kılıcı', 'Monstera', 'Gül', 'Mavi Ladin', 'Biberiye'].map(name => (
+              <button
+                key={name}
+                type="button"
+                onClick={() => handleChipClick(name)}
+                style={{
+                  background: 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(143,164,134,0.18)',
+                  borderRadius: 'var(--radius-full)',
+                  padding: '0.2rem 0.65rem',
+                  color: 'var(--text-secondary)',
+                  fontSize: '0.78rem',
+                  cursor: 'pointer',
+                  transition: 'var(--transition-fast)'
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent-gold)'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(143,164,134,0.18)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* ─── DÖRT BELİRGİN VE GÖRKEMLİ ANA EYLEM KARTI ─── */}
         <div style={{
@@ -228,12 +351,12 @@ export default function Home() {
             </div>
           </Link>
 
-          {/* 5. Giriş Yap & Üye Ol */}
-          <Link href="/login" style={{ display: 'block', textDecoration: 'none' }}>
+          {/* 5. İklim, Toprak & Güneş Bitki Seçici */}
+          <Link href="/plant-select" style={{ display: 'block', textDecoration: 'none' }}>
             <div style={{
-              background: 'rgba(25, 35, 45, 0.85)',
+              background: 'rgba(20, 36, 28, 0.9)',
               backdropFilter: 'blur(20px)',
-              border: '1.5px solid rgba(96, 165, 250, 0.45)',
+              border: '1.5px solid rgba(130, 173, 118, 0.55)',
               borderRadius: 'var(--radius-xl)',
               padding: '2rem 1.4rem',
               textAlign: 'center',
@@ -247,12 +370,12 @@ export default function Home() {
               boxShadow: '0 12px 35px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12)'
             }}
               onMouseEnter={e => {
-                e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.85)';
+                e.currentTarget.style.borderColor = 'var(--accent-gold)';
                 e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 18px 45px rgba(96, 165, 250, 0.25)';
+                e.currentTarget.style.boxShadow = '0 18px 45px rgba(201, 168, 76, 0.3)';
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.45)';
+                e.currentTarget.style.borderColor = 'rgba(130, 173, 118, 0.55)';
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12)';
               }}
@@ -260,21 +383,80 @@ export default function Home() {
               <div style={{
                 width: 58, height: 58,
                 borderRadius: '50%',
-                background: 'rgba(96, 165, 250, 0.22)',
+                background: 'rgba(130, 173, 118, 0.25)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: '#60a5fa',
+                color: 'var(--accent-gold)',
                 marginBottom: '1.1rem',
-                border: '1px solid rgba(96, 165, 250, 0.4)'
+                border: '1px solid rgba(201, 168, 76, 0.5)'
               }}>
-                <Sparkles size={28} strokeWidth={1.6} />
+                <Compass size={28} strokeWidth={1.6} />
               </div>
               <div style={{ fontWeight: 600, fontSize: '1.12rem', color: '#ffffff', marginBottom: '0.4rem', fontFamily: "'Lora', Georgia, serif" }}>
-                Giriş Yap & Üye Ol
+                İklim & Toprak Seçici
               </div>
               <div style={{ fontSize: '0.86rem', color: 'var(--text-tertiary)', lineHeight: 1.45 }}>
-                Hesabınıza giriş yapın veya yeni botanik hesabı oluşturun
+                İklim, toprak ve güneşinize tam uyumlu bitkileri bulun
               </div>
             </div>
+          </Link>
+        </div>
+
+        {/* ─── YENİ ÖZELLİK: AKILLI BİTKİ SEÇİCİ BANNERI ─── */}
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(20, 36, 28, 0.95), rgba(32, 28, 20, 0.95))',
+          border: '1.5px solid rgba(201, 168, 76, 0.35)',
+          borderRadius: 'var(--radius-xl)',
+          padding: '2rem 2.5rem',
+          maxWidth: '1050px',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1.5rem',
+          boxShadow: '0 15px 40px rgba(0,0,0,0.4)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', maxWidth: '650px' }}>
+            <div style={{
+              width: 54, height: 54,
+              borderRadius: '50%',
+              background: 'rgba(201, 168, 76, 0.18)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: 'var(--accent-gold)',
+              flexShrink: 0,
+              border: '1px solid rgba(201, 168, 76, 0.4)'
+            }}>
+              <Compass size={28} />
+            </div>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.3rem' }}>
+                <span style={{ fontSize: '0.74rem', background: 'var(--accent-gold)', color: '#121814', fontWeight: 700, padding: '0.15rem 0.6rem', borderRadius: 'var(--radius-full)' }}>YENİ</span>
+                <span style={{ fontSize: '0.82rem', color: 'var(--accent-green)', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Ekolojik Bitki Seçimi</span>
+              </div>
+              <h3 style={{ fontSize: '1.25rem', color: '#f3efe6', fontFamily: "'Lora', Georgia, serif", marginBottom: '0.3rem' }}>
+                Bahçenizin iklimine, toprağına ve güneşine uygun bitki mi arıyorsunuz?
+              </h3>
+              <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                Akdeniz'den Karasal iklime, kireçli topraktan asidik kuma kadar çevre koşullarınızı belirleyin; en uygun bitkileri eşleşme analiziyle keşfedin.
+              </p>
+            </div>
+          </div>
+
+          <Link
+            href="/plant-select"
+            className="btn btn-primary"
+            style={{
+              padding: '0.8rem 1.8rem',
+              fontSize: '0.94rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              fontWeight: 700,
+              boxShadow: '0 4px 18px rgba(130, 173, 118, 0.35)'
+            }}
+          >
+            <span>Bitki Seçiciyi Başlat</span>
+            <ArrowRight size={16} />
           </Link>
         </div>
       </div>

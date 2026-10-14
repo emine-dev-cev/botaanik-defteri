@@ -4,47 +4,34 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   Search, Loader2, Leaf, Droplet, Sun, Camera,
-  Trash2, Eye, Plus, AlertTriangle, Sparkles, X
+  Trash2, Eye, Plus, AlertTriangle, Sparkles, X,
+  Compass, ArrowRight
 } from 'lucide-react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://botaanik-defteri.onrender.com';
-
-// Basit bellek önbelleği — sayfa geçişlerinde anında açılır
-let _plantsCache = null;
-let _plantsCacheTime = 0;
-const CACHE_TTL = 60_000; // 60 saniye
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export default function PlantsDirectory() {
   const router = useRouter();
-  const [plants, setPlants] = useState(_plantsCache || []);
-  const [isLoading, setIsLoading] = useState(!_plantsCache);
+  const [plants, setPlants] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [deletingId, setDeletingId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState(null);
 
   const fetchPlants = async (searchTerm = '') => {
-    const now = Date.now();
-    // Önbellekten getir (hızlı açılış) ve arka planda güncelle
-    if (!searchTerm && _plantsCache && (now - _plantsCacheTime) < CACHE_TTL) {
-      setPlants(_plantsCache);
-      setIsLoading(false);
-    } else {
-      if (!_plantsCache) setIsLoading(true);
-    }
+    setIsLoading(true);
     try {
       const url = searchTerm.trim()
         ? `${API_URL}/api/plants?q=${encodeURIComponent(searchTerm.trim())}`
         : `${API_URL}/api/plants`;
-      const res = await fetch(url);
+      const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error('Bitkiler alınamadı.');
       const data = await res.json();
-      const list = Array.isArray(data) ? data : [];
-      if (!searchTerm) { _plantsCache = list; _plantsCacheTime = Date.now(); }
-      setPlants(list);
+      setPlants(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Bitki listeleme hatası:', err);
-      if (!_plantsCache) setPlants([]);
+      setPlants([]);
     } finally {
       setIsLoading(false);
     }
@@ -113,19 +100,97 @@ export default function PlantsDirectory() {
           </p>
         </div>
 
-        <Link
-          href="/identify"
-          className="btn btn-primary"
-          style={{
-            padding: '0.75rem 1.6rem',
-            fontSize: '0.95rem',
-            boxShadow: '0 4px 16px rgba(130, 173, 118, 0.25)'
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <Link
+            href="/plant-select"
+            className="btn btn-secondary"
+            style={{
+              padding: '0.75rem 1.4rem',
+              fontSize: '0.92rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              border: '1px solid rgba(201, 168, 76, 0.4)',
+              color: 'var(--accent-gold)'
+            }}
+          >
+            <Compass size={17} />
+            <span>İklim & Toprak Seçici</span>
+          </Link>
+
+          <Link
+            href="/identify"
+            className="btn btn-primary"
+            style={{
+              padding: '0.75rem 1.6rem',
+              fontSize: '0.95rem',
+              boxShadow: '0 4px 16px rgba(130, 173, 118, 0.25)'
+            }}
+          >
+            <Camera size={18} />
+            Yeni Bitki Tanı & Ekle
+          </Link>
+        </div>
+      </div>
+
+      {/* ─── İKLİM, TOPRAK & GÜNEŞ REHBERİ BANNERI ─── */}
+      <Link href="/plant-select" style={{ display: 'block', textDecoration: 'none', marginBottom: '2rem' }}>
+        <div style={{
+          background: 'rgba(20, 36, 28, 0.85)',
+          border: '1px solid rgba(130, 173, 118, 0.35)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '1rem 1.4rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '1rem',
+          flexWrap: 'wrap',
+          transition: 'var(--transition)',
+          boxShadow: '0 4px 18px rgba(0,0,0,0.2)'
+        }}
+          onMouseEnter={e => {
+            e.currentTarget.style.borderColor = 'var(--accent-gold)';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.borderColor = 'rgba(130, 173, 118, 0.35)';
+            e.currentTarget.style.transform = 'translateY(0)';
           }}
         >
-          <Camera size={18} />
-          Yeni Bitki Tanı & Ekle
-        </Link>
-      </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem' }}>
+            <div style={{
+              width: 38, height: 38,
+              borderRadius: '50%',
+              background: 'rgba(201, 168, 76, 0.18)',
+              color: 'var(--accent-gold)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0
+            }}>
+              <Compass size={20} />
+            </div>
+            <div>
+              <div style={{ fontWeight: 600, fontSize: '0.94rem', color: '#f3efe6' }}>
+                Hangi bitkiyi seçeceğinizden emin değil misiniz?
+              </div>
+              <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+                Bölgenizin iklimine, bahçenizin toprağına ve güneş açısına göre en uygun bitkileri eşleştirin.
+              </div>
+            </div>
+          </div>
+
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            color: 'var(--accent-green)',
+            fontSize: '0.86rem',
+            fontWeight: 600
+          }}>
+            <span>Akıllı Seçiciyi Aç</span>
+            <ArrowRight size={15} />
+          </div>
+        </div>
+      </Link>
 
       {/* ─── ARAMA ÇUBUĞU ─── */}
       <div style={{ position: 'relative', maxWidth: '580px', marginBottom: '2.5rem' }}>
@@ -188,7 +253,11 @@ export default function PlantsDirectory() {
           <p style={{ fontSize: '0.95rem', color: 'var(--text-tertiary)' }}>Bitki koleksiyonu yükleniyor...</p>
         </div>
       ) : plants.length > 0 ? (
-        <div className="plant-cards-grid">
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+          gap: '1.6rem'
+        }}>
           {plants.map((plant) => {
             const plantImg = plant.images?.[0]?.image_url;
 
@@ -219,10 +288,8 @@ export default function PlantsDirectory() {
                 <Link href={`/plants/${plant.id}`} style={{ display: 'block', position: 'relative', height: 210, background: '#0d120f' }}>
                   {plantImg ? (
                     <img
-                      src={plantImg.startsWith('http://localhost:3001') ? plantImg.replace('http://localhost:3001', API_URL) : plantImg.startsWith('/uploads') ? `${API_URL}${plantImg}` : plantImg}
+                      src={plantImg}
                       alt={plant.turkish_name || plant.scientific_name}
-                      loading="lazy"
-                      decoding="async"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   ) : (
@@ -402,13 +469,33 @@ export default function PlantsDirectory() {
           </p>
 
           {search ? (
-            <button
-              className="btn btn-secondary"
-              onClick={() => setSearch('')}
-              style={{ fontSize: '0.92rem' }}
-            >
-              Aramayı Temizle
-            </button>
+            <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link
+                href={`/plant-select?q=${encodeURIComponent(search)}`}
+                className="btn btn-primary"
+                style={{
+                  padding: '0.75rem 1.4rem',
+                  fontSize: '0.92rem',
+                  background: 'linear-gradient(135deg, var(--accent-gold), #eed588)',
+                  color: '#121814',
+                  fontWeight: 700,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  boxShadow: '0 4px 15px rgba(201, 168, 76, 0.35)'
+                }}
+              >
+                <Sparkles size={16} />
+                <span>Yapay Zekâ ile "{search}" Bitkisini Ansiklopediden Getir</span>
+              </Link>
+              <button
+                className="btn btn-secondary"
+                onClick={() => setSearch('')}
+                style={{ fontSize: '0.92rem' }}
+              >
+                Aramayı Temizle
+              </button>
+            </div>
           ) : (
             <Link
               href="/identify"
