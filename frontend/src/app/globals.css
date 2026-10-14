@@ -507,4 +507,36 @@ textarea::placeholder {
   }
 }
 
+/* === RESPONSIVE NAVBAR & MOBİL YATAY MENÜ === */
+.mobile-horizontal-scroll-bar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+@media (min-width: 901px) {
+  .desktop-only-links {
+    display: flex !important;
+  }
+  .mobile-only-controls {
+    display: none !important;
+  }
+  .mobile-horizontal-scroll-bar {
+    display: none !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .desktop-only-links {
+    display: none !important;
+  }
+  .mobile-only-controls {
+    display: flex !important;
+  }
+  .mobile-horizontal-scroll-bar {
+    display: flex !important;
+  }
+}
+
+
 
