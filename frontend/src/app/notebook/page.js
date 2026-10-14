@@ -9,7 +9,7 @@ import {
   Undo2, Layers, Compass
 } from 'lucide-react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+import { API_URL } from '@/lib/api';
 
 const COLOR_PALETTE = [
   { name: 'Orman Yeşili', color: '#82ad76' },
