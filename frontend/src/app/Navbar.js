@@ -68,21 +68,23 @@ export default function Navbar() {
   return (
     <>
       {/* ─── ANA NAVBAR KUTUSU ─── */}
-      <header className="container" style={{ paddingTop: '1.25rem', position: 'relative', zIndex: 40 }}>
+      <header className="container" style={{ paddingTop: '1.25rem', position: 'relative', zIndex: 40, width: '100%', maxWidth: '100%' }}>
         <nav style={{
           background: 'rgba(20, 27, 23, 0.92)',
           backdropFilter: 'blur(20px)',
           border: '1px solid rgba(143, 164, 134, 0.25)',
           borderRadius: 'var(--radius-xl)',
-          padding: '0.75rem 1.4rem',
+          padding: '0.65rem 1rem',
           boxShadow: '0 8px 32px rgba(0,0,0,0.45)',
           marginBottom: '1.5rem',
+          width: '100%',
         }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: '1rem',
+            gap: '0.5rem',
+            width: '100%',
           }}>
             {/* SOL TARAFTA: LOGO */}
             <Link
@@ -90,19 +92,20 @@ export default function Navbar() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.65rem',
-                fontSize: 'clamp(1.1rem, 3.5vw, 1.35rem)',
+                gap: '0.5rem',
+                fontSize: 'clamp(0.95rem, 3.2vw, 1.35rem)',
                 fontWeight: '600',
                 fontFamily: "'Lora', Georgia, serif",
                 color: '#f3efe6',
                 letterSpacing: '-0.01em',
                 textDecoration: 'none',
-                flexShrink: 0,
+                minWidth: 0,
+                flexShrink: 1,
               }}
             >
               <div style={{
-                width: 38,
-                height: 38,
+                width: 34,
+                height: 34,
                 borderRadius: '50%',
                 overflow: 'hidden',
                 border: '1.5px solid rgba(201, 168, 76, 0.65)',
@@ -114,39 +117,40 @@ export default function Navbar() {
               }}>
                 <img src="/sunsiree-logo.jpg" alt="Sunsiree Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <span>
-                <span style={{ color: 'var(--accent-gold)', fontWeight: 700 }}>Sunsiree</span> Bitki{' '}
-                <span style={{ color: 'var(--accent-gold)', fontStyle: 'italic', fontWeight: 400 }}>Dünyası</span>
+              <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <span style={{ color: 'var(--accent-gold)', fontWeight: 700 }}>Sunsiree</span> Bitki
+                <span className="navbar-brand-sub" style={{ color: 'var(--accent-gold)', fontStyle: 'italic', fontWeight: 400 }}> Dünyası</span>
               </span>
             </Link>
 
-            {/* SAĞ TARAFTA: HIZLI TANI BUTONU + KULLANICININ İSTEDİĞİ MENÜ KUTUCUĞU */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            {/* SAĞ TARAFTA: HIZLI TANI BUTONU + MENÜ KUTUCUĞU */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
               
-              {/* Hızlı Yapay Zekâ Tanı Butonu */}
+              {/* Hızlı Yapay Zekâ Tanı Butonu - Mobilde gizlenir (altta ve menüde var) */}
               <Link
                 href="/identify"
+                className="nav-identify-btn"
                 style={{
                   background: 'linear-gradient(135deg, rgba(130, 173, 118, 0.25), rgba(130, 173, 118, 0.15))',
                   border: '1px solid rgba(130, 173, 118, 0.4)',
                   color: '#a8caa0',
-                  padding: '0.5rem 1rem',
+                  padding: '0.45rem 0.85rem',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '0.85rem',
+                  fontSize: '0.82rem',
                   fontWeight: 600,
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.4rem',
+                  gap: '0.35rem',
                   textDecoration: 'none',
                   transition: 'all 0.2s ease',
                   whiteSpace: 'nowrap'
                 }}
               >
-                <Camera size={15} />
+                <Camera size={14} />
                 <span>Bitki Tanı</span>
               </Link>
 
-              {/* ─── KULLANICININ İSTEDİĞİ SAĞ MENÜ KUTUCUĞU (Tıklayınca Sol Menü Açılır) ─── */}
+              {/* ─── KULLANICININ İSTEDİĞİ SAĞ MENÜ KUTUCUĞU ─── */}
               <button
                 type="button"
                 onClick={() => setIsOpen(true)}
@@ -154,17 +158,19 @@ export default function Navbar() {
                 style={{
                   background: isOpen ? 'rgba(229, 169, 60, 0.25)' : 'rgba(229, 169, 60, 0.15)',
                   border: '1.5px solid rgba(229, 169, 60, 0.55)',
-                  borderRadius: '14px',
-                  padding: '0.52rem 1.05rem',
+                  borderRadius: '12px',
+                  padding: '0.45rem 0.85rem',
                   color: '#e5c368',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
-                  fontSize: '0.9rem',
+                  gap: '0.45rem',
+                  fontSize: '0.85rem',
                   fontWeight: 600,
                   cursor: 'pointer',
                   boxShadow: '0 4px 15px rgba(229, 169, 60, 0.2)',
-                  transition: 'all 0.2s ease'
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.background = 'rgba(229, 169, 60, 0.3)';
@@ -177,7 +183,7 @@ export default function Navbar() {
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                <Menu size={19} />
+                <Menu size={18} />
                 <span>Menü</span>
               </button>
 
