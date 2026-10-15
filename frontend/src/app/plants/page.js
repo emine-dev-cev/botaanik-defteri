@@ -253,13 +253,10 @@ export default function PlantsDirectory() {
           <p style={{ fontSize: '0.95rem', color: 'var(--text-tertiary)' }}>Bitki koleksiyonu yükleniyor...</p>
         </div>
       ) : plants.length > 0 ? (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-          gap: '1.4rem'
-        }}>
+        <div className="plants-grid-responsive">
           {plants.map((plant) => {
-            const plantImg = plant.images?.[0]?.image_url;
+            const rawImg = plant.images?.[0]?.image_url;
+            const plantImg = rawImg ? (rawImg.startsWith('http://localhost:3001') ? rawImg.replace('http://localhost:3001', API_URL) : rawImg.startsWith('/uploads') ? `${API_URL}${rawImg}` : rawImg) : null;
 
             return (
               <div
@@ -285,11 +282,12 @@ export default function PlantsDirectory() {
                 }}
               >
                 {/* Kart Görseli */}
-                <Link href={`/plants/${plant.id}`} style={{ display: 'block', position: 'relative', height: 210, background: '#0d120f' }}>
+                <Link href={`/plants/${plant.id}`} style={{ display: 'block', position: 'relative', height: 180, background: '#0d120f' }}>
                   {plantImg ? (
                     <img
                       src={plantImg}
                       alt={plant.turkish_name || plant.scientific_name}
+                      loading="lazy"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   ) : (
@@ -486,7 +484,7 @@ export default function PlantsDirectory() {
                 }}
               >
                 <Sparkles size={16} />
-                <span>Yapay Zekâ ile "{search}" Bitkisini Ansiklopediden Getir</span>
+                <span>Yapay Zekâ ile &quot;{search}&quot; Bitkisini Ansiklopediden Getir</span>
               </Link>
               <button
                 className="btn btn-secondary"

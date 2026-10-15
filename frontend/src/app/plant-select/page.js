@@ -261,8 +261,10 @@ export default function PlantSelectPage() {
       const urlParams = new URLSearchParams(window.location.search);
       const q = urlParams.get('q');
       if (q && q.trim()) {
-        setSearchQuery(q.trim());
-        handleSearchPlant(q.trim());
+        setTimeout(() => {
+          setSearchQuery(q.trim());
+          handleSearchPlant(q.trim());
+        }, 0);
       }
     }
   }, []);
@@ -910,7 +912,7 @@ export default function PlantSelectPage() {
                     }}
                   >
                     <Sparkles size={15} />
-                    <span>"{searchResult.query}" Hakkında Yapay Zekâ Ansiklopedisinden Daha Derinlemesine Bilgi Getir</span>
+                    <span>&quot;{searchResult.query}&quot; Hakkında Yapay Zekâ Ansiklopedisinden Daha Derinlemesine Bilgi Getir</span>
                   </button>
                 </div>
               </div>
@@ -1536,11 +1538,7 @@ export default function PlantSelectPage() {
                 <p style={{ fontSize: '0.95rem', color: 'var(--text-tertiary)' }}>Bitki koleksiyonu inceleniyor...</p>
               </div>
             ) : matchedPlants.length > 0 ? (
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-                gap: '1.25rem'
-              }}>
+              <div className="plants-grid-responsive">
                 {matchedPlants.map(plant => {
                   const plantImg = plant.images?.[0]?.image_url;
                   const score = plant.matchScore || 100;
@@ -1572,7 +1570,7 @@ export default function PlantSelectPage() {
                       }}
                     >
                       {/* Kart Görseli & Eşleşme Rozeti */}
-                      <div style={{ position: 'relative', height: 200, background: '#0d120f' }}>
+                      <div style={{ position: 'relative', height: 180, background: '#0d120f' }}>
                         {plantImg ? (
                           <img
                             src={plantImg.startsWith('http://localhost:3001') ? plantImg.replace('http://localhost:3001', getApiUrl()) : plantImg.startsWith('/uploads') ? `${getApiUrl()}${plantImg}` : plantImg}

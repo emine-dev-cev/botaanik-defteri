@@ -12,6 +12,13 @@ import {
 
 import { API_URL } from '@/lib/api';
 
+const formatImageUrl = (url) => {
+  if (!url) return '';
+  if (url.startsWith('http://localhost:3001')) return url.replace('http://localhost:3001', API_URL);
+  if (url.startsWith('/uploads')) return `${API_URL}${url}`;
+  return url;
+};
+
 export default function PlantDetailPage({ params }) {
   const router = useRouter();
   const [plant, setPlant] = useState(null);
@@ -34,27 +41,32 @@ export default function PlantDetailPage({ params }) {
     Promise.resolve(params).then(p => setResolvedId(p?.id));
   }, [params]);
 
-  const loadPlant = async (id) => {
-    try {
-      const res = await fetch(`${API_URL}/api/plants/${id}`, { cache: 'no-store' });
-      if (!res.ok) {
-        setPlant(null);
-        return;
-      }
-      const data = await res.json();
-      setPlant(data);
-      setEditFormData(JSON.parse(JSON.stringify(data)));
-    } catch (e) {
-      console.error('Bitki yüklenirken hata:', e);
-      setPlant(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (!resolvedId) return;
-    loadPlant(resolvedId);
+    let isMounted = true;
+
+    const fetchPlant = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/plants/${resolvedId}`, { cache: 'no-store' });
+        if (!res.ok) {
+          if (isMounted) setPlant(null);
+          return;
+        }
+        const data = await res.json();
+        if (isMounted) {
+          setPlant(data);
+          setEditFormData(JSON.parse(JSON.stringify(data)));
+        }
+      } catch (e) {
+        console.error('Bitki yüklenirken hata:', e);
+        if (isMounted) setPlant(null);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    fetchPlant();
+    return () => { isMounted = false; };
   }, [resolvedId]);
 
   // Güncellemeyi kaydet
@@ -317,7 +329,7 @@ export default function PlantDetailPage({ params }) {
           }}>
             {plant.images && plant.images.length > 0 ? (
               <img
-                src={plant.images[activeImageIndex]?.image_url || plant.images[0]?.image_url}
+                src={formatImageUrl(plant.images[activeImageIndex]?.image_url || plant.images[0]?.image_url)}
                 alt={plant.turkish_name || plant.scientific_name}
                 style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#0a0e0b' }}
               />
@@ -407,7 +419,7 @@ export default function PlantDetailPage({ params }) {
                   }}
                 >
                   <img
-                    src={img.image_url}
+                    src={formatImageUrl(img.image_url)}
                     alt="Thumbnail"
                     style={{ width: 28, height: 28, borderRadius: 4, objectFit: 'cover', flexShrink: 0 }}
                   />
