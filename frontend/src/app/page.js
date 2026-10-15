@@ -31,8 +31,8 @@ export default function Home() {
         </div>
 
         <h1 style={{ marginBottom: '1.2rem', fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', lineHeight: 1.15, color: '#f3efe6' }}>
-          Bitki Fotoğraflarını & Saha Notlarını<br />
-          <span style={{ color: 'var(--accent-gold)', fontStyle: 'italic', fontWeight: 500 }}>Keşfet & Kaydet</span>
+          Bitkileri ve Saha Notlarınızı<br />
+          <span style={{ color: 'var(--accent-gold)', fontStyle: 'italic', fontWeight: 500 }}>Keşfedin ve Kaydedin</span>
         </h1>
 
         <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', maxWidth: '620px', margin: '0 auto 2.2rem', lineHeight: 1.6 }}>
@@ -197,7 +197,7 @@ export default function Home() {
                 <Camera size={28} strokeWidth={1.6} />
               </div>
               <div style={{ fontWeight: 600, fontSize: '1.12rem', color: '#ffffff', marginBottom: '0.4rem', fontFamily: "'Lora', Georgia, serif" }}>
-                Fotoğraf Yükle & Tanı
+                Bitki Tanı
               </div>
               <div style={{ fontSize: '0.86rem', color: 'var(--text-tertiary)', lineHeight: 1.45 }}>
                 Bitki fotoğrafı yükleyip yapay zekâ ile türünü öğrenin
@@ -295,7 +295,7 @@ export default function Home() {
                 <NotebookPen size={28} strokeWidth={1.6} />
               </div>
               <div style={{ fontWeight: 600, fontSize: '1.12rem', color: '#ffffff', marginBottom: '0.4rem', fontFamily: "'Lora', Georgia, serif" }}>
-                Not Defterim & Çizim
+                Not Defteri
               </div>
               <div style={{ fontSize: '0.86rem', color: 'var(--text-tertiary)', lineHeight: 1.45 }}>
                 Saha notlarınızı saklayın ve bitkinizi tuvalde çizin
@@ -393,7 +393,7 @@ export default function Home() {
                 <Compass size={28} strokeWidth={1.6} />
               </div>
               <div style={{ fontWeight: 600, fontSize: '1.12rem', color: '#ffffff', marginBottom: '0.4rem', fontFamily: "'Lora', Georgia, serif" }}>
-                İklim & Toprak Seçici
+                Bitki Seçici
               </div>
               <div style={{ fontSize: '0.86rem', color: 'var(--text-tertiary)', lineHeight: 1.45 }}>
                 İklim, toprak ve güneşinize tam uyumlu bitkileri bulun
@@ -438,7 +438,7 @@ export default function Home() {
                 Bahçenizin iklimine, toprağına ve güneşine uygun bitki mi arıyorsunuz?
               </h3>
               <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                Akdeniz'den Karasal iklime, kireçli topraktan asidik kuma kadar çevre koşullarınızı belirleyin; en uygun bitkileri eşleşme analiziyle keşfedin.
+                Akdeniz&apos;den Karasal iklime, kireçli topraktan asidik kuma kadar çevre koşullarınızı belirleyin; en uygun bitkileri eşleşme analiziyle keşfedin.
               </p>
             </div>
           </div>

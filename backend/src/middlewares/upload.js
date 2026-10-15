@@ -36,8 +36,29 @@ const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
   limits: {
-    fileSize: 25 * 1024 * 1024
+    fileSize: 50 * 1024 * 1024
   }
 });
+
+const documentStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname).toLowerCase() || '';
+    const cleanName = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9_\-\u00C0-\u017F]/g, '_').substring(0, 40);
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E6);
+    cb(null, 'file-' + cleanName + '-' + uniqueSuffix + ext);
+  }
+});
+
+const uploadDocument = multer({
+  storage: documentStorage,
+  limits: {
+    fileSize: 100 * 1024 * 1024 // 100MB dosya desteği
+  }
+});
+
+upload.document = uploadDocument;
 
 module.exports = upload;

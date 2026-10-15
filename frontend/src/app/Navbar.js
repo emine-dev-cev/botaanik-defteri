@@ -4,19 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
   Menu, X, BookOpen, Compass, NotebookPen, User, Camera, 
-  Leaf, ChevronRight, Sparkles
+  Leaf, ChevronRight, Sparkles, FolderOpen, Search, LogIn
 } from 'lucide-react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  // Sayfa değiştiğinde yan menüyü kapat
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
-  // Yan menü açıkken arkadaki kaydırmayı kilitle
+  // Sol menü açıkken arka plan kaydırmasını kilitle
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -29,11 +24,45 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navItems = [
-    { href: '/', label: 'Ana Sayfa', icon: Leaf },
-    { href: '/plants', label: 'Bitki Koleksiyonu', icon: BookOpen },
-    { href: '/plant-select', label: 'Bitki Seçici & Arama', icon: Compass, highlight: true },
-    { href: '/notebook', label: 'Not Defterim', icon: NotebookPen, gold: true },
-    { href: '/login', label: 'Giriş Yap', icon: User },
+    { 
+      href: '/', 
+      label: 'Ana Sayfa', 
+      desc: 'Genel Bakış',
+      icon: Leaf 
+    },
+    { 
+      href: '/plants', 
+      label: 'Bitki Koleksiyonu', 
+      desc: 'Botanik Kataloğu',
+      icon: BookOpen 
+    },
+    { 
+      href: '/plant-select', 
+      label: 'Bitki Seçici', 
+      desc: 'Detaylı Filtreleme',
+      icon: Compass, 
+      highlight: true 
+    },
+    { 
+      href: '/notebook', 
+      label: 'Not Defteri', 
+      desc: 'Klasörler ve Dosyalar',
+      icon: NotebookPen, 
+      gold: true 
+    },
+    { 
+      href: '/identify', 
+      label: 'Bitki Tanı', 
+      desc: 'Fotoğraflı Analiz',
+      icon: Camera,
+      green: true
+    },
+    { 
+      href: '/login', 
+      label: 'Giriş Yap', 
+      desc: 'Kullanıcı Hesabı',
+      icon: User 
+    },
   ];
 
   return (
@@ -41,28 +70,27 @@ export default function Navbar() {
       {/* ─── ANA NAVBAR KUTUSU ─── */}
       <header className="container" style={{ paddingTop: '1.25rem', position: 'relative', zIndex: 40 }}>
         <nav style={{
-          background: 'rgba(20, 27, 23, 0.88)',
-          backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(143, 164, 134, 0.22)',
+          background: 'rgba(20, 27, 23, 0.92)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(143, 164, 134, 0.25)',
           borderRadius: 'var(--radius-xl)',
-          padding: '0.75rem 1.25rem',
-          boxShadow: '0 8px 30px rgba(0,0,0,0.35)',
+          padding: '0.75rem 1.4rem',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.45)',
           marginBottom: '1.5rem',
         }}>
-          {/* ÜST SATIR: LOGO + DESKTOP LİNKLER + MOBİL MENÜ BUTONU */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: '1rem',
           }}>
-            {/* Logo */}
+            {/* SOL TARAFTA: LOGO */}
             <Link
               href="/"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.6rem',
+                gap: '0.65rem',
                 fontSize: 'clamp(1.1rem, 3.5vw, 1.35rem)',
                 fontWeight: '600',
                 fontFamily: "'Lora', Georgia, serif",
@@ -92,247 +120,178 @@ export default function Navbar() {
               </span>
             </Link>
 
-            {/* MASAÜSTÜ LİNKLERİ (Ekran genişken görünür) */}
-            <div className="desktop-only-links" style={{ alignItems: 'center', gap: '0.65rem' }}>
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    style={{
-                      fontSize: '0.9rem',
-                      color: item.highlight ? 'var(--accent-green)' : item.gold ? 'var(--accent-gold)' : isActive ? '#fff' : 'var(--text-secondary)',
-                      padding: '0.5rem 0.95rem',
-                      borderRadius: 'var(--radius-full)',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.45rem',
-                      fontWeight: isActive ? 600 : 500,
-                      background: item.highlight 
-                        ? 'rgba(130, 173, 118, 0.12)' 
-                        : item.gold 
-                        ? 'rgba(201, 168, 76, 0.1)' 
-                        : isActive 
-                        ? 'rgba(255,255,255,0.08)' 
-                        : 'transparent',
-                      border: item.highlight 
-                        ? '1px solid rgba(130, 173, 118, 0.28)' 
-                        : item.gold 
-                        ? '1px solid rgba(201, 168, 76, 0.25)' 
-                        : '1px solid transparent',
-                      transition: 'var(--transition-fast)',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
-                    <Icon size={15} />
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              })}
-
-              <Link
-                href="/identify"
-                className="btn btn-primary"
-                style={{
-                  padding: '0.55rem 1.2rem',
-                  fontSize: '0.88rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.45rem',
-                  fontWeight: 600,
-                  whiteSpace: 'nowrap',
-                  boxShadow: '0 4px 14px rgba(130, 173, 118, 0.25)'
-                }}
-              >
-                <Camera size={16} />
-                <span>Tanı</span>
-              </Link>
-            </div>
-
-            {/* MOBİL SAĞ BUTONLAR (Hızlı Tanı + Yana Açılır Menü Butonu) */}
-            <div className="mobile-only-controls" style={{ alignItems: 'center', gap: '0.6rem' }}>
+            {/* SAĞ TARAFTA: HIZLI TANI BUTONU + KULLANICININ İSTEDİĞİ MENÜ KUTUCUĞU */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              
+              {/* Hızlı Yapay Zekâ Tanı Butonu */}
               <Link
                 href="/identify"
                 style={{
-                  background: 'linear-gradient(135deg, var(--accent-green), #9ec592)',
-                  color: '#121814',
-                  padding: '0.45rem 0.85rem',
+                  background: 'linear-gradient(135deg, rgba(130, 173, 118, 0.25), rgba(130, 173, 118, 0.15))',
+                  border: '1px solid rgba(130, 173, 118, 0.4)',
+                  color: '#a8caa0',
+                  padding: '0.5rem 1rem',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '0.82rem',
-                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.35rem',
+                  gap: '0.4rem',
                   textDecoration: 'none',
-                  boxShadow: '0 3px 10px rgba(130, 173, 118, 0.35)'
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap'
                 }}
               >
-                <Camera size={14} />
-                <span>Tanı</span>
+                <Camera size={15} />
+                <span>Bitki Tanı</span>
               </Link>
 
-              {/* Hamburger / Yan Menü Butonu */}
+              {/* ─── KULLANICININ İSTEDİĞİ SAĞ MENÜ KUTUCUĞU (Tıklayınca Sol Menü Açılır) ─── */}
               <button
                 type="button"
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => setIsOpen(true)}
                 aria-label="Menüyü Aç"
                 style={{
-                  background: isOpen ? 'rgba(201, 168, 76, 0.25)' : 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(201, 168, 76, 0.4)',
-                  borderRadius: 'var(--radius-full)',
-                  padding: '0.45rem 0.75rem',
-                  color: 'var(--accent-gold)',
+                  background: isOpen ? 'rgba(229, 169, 60, 0.25)' : 'rgba(229, 169, 60, 0.15)',
+                  border: '1.5px solid rgba(229, 169, 60, 0.55)',
+                  borderRadius: '14px',
+                  padding: '0.52rem 1.05rem',
+                  color: '#e5c368',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.35rem',
-                  fontSize: '0.82rem',
+                  gap: '0.5rem',
+                  fontSize: '0.9rem',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  transition: 'var(--transition-fast)'
+                  boxShadow: '0 4px 15px rgba(229, 169, 60, 0.2)',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'rgba(229, 169, 60, 0.3)';
+                  e.currentTarget.style.borderColor = '#e5c368';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = isOpen ? 'rgba(229, 169, 60, 0.25)' : 'rgba(229, 169, 60, 0.15)';
+                  e.currentTarget.style.borderColor = 'rgba(229, 169, 60, 0.55)';
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                {isOpen ? <X size={18} /> : <Menu size={18} />}
+                <Menu size={19} />
                 <span>Menü</span>
               </button>
-            </div>
-          </div>
 
-          {/* ─── MOBİLDE YANA KAYDIRILABİLİR TEK SATIR KATEGORİ MENÜSÜ ─── */}
-          {/* Asla alt alta sarmaz veya ezilip yuvarlak balon olmaz, yana doğru pürüzsüz kayar */}
-          <div className="mobile-horizontal-scroll-bar" style={{
-            marginTop: '0.75rem',
-            paddingTop: '0.65rem',
-            borderTop: '1px solid rgba(143, 164, 134, 0.14)',
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            display: 'none', // Sadece mobilde CSS ile flex olur
-            gap: '0.45rem',
-            whiteSpace: 'nowrap',
-          }}>
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.4rem',
-                    padding: '0.42rem 0.85rem',
-                    borderRadius: 'var(--radius-full)',
-                    fontSize: '0.8rem',
-                    fontWeight: isActive ? 700 : 500,
-                    flexShrink: 0,
-                    whiteSpace: 'nowrap',
-                    textDecoration: 'none',
-                    color: item.highlight ? 'var(--accent-green)' : item.gold ? 'var(--accent-gold)' : isActive ? '#ffffff' : 'var(--text-secondary)',
-                    background: item.highlight 
-                      ? 'rgba(130, 173, 118, 0.18)' 
-                      : item.gold 
-                      ? 'rgba(201, 168, 76, 0.15)' 
-                      : isActive 
-                      ? 'rgba(255,255,255,0.12)' 
-                      : 'rgba(255,255,255,0.05)',
-                    border: item.highlight 
-                      ? '1px solid rgba(130, 173, 118, 0.35)' 
-                      : item.gold 
-                      ? '1px solid rgba(201, 168, 76, 0.3)' 
-                      : '1px solid rgba(143, 164, 134, 0.18)'
-                  }}
-                >
-                  <Icon size={14} />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
+            </div>
           </div>
         </nav>
       </header>
 
-      {/* ─── YANA AÇILAN MOBİL MENÜ (SIDE DRAWER / SAĞ PANEL) ─── */}
+      {/* ─── KARARTMA ARKA PLANI (OVERLAY) ─── */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0, 0, 0, 0.72)',
+            background: 'rgba(0, 0, 0, 0.75)',
             backdropFilter: 'blur(8px)',
             zIndex: 998,
-            transition: 'opacity 0.3s ease'
+            animation: 'fadeIn 0.25s ease'
           }}
         />
       )}
 
+      {/* ─── UYGULAMANIN SOL KISMINDAN AÇILAN GELİŞMİŞ MENÜ PANELİ (LEFT SIDEBAR DRAWER) ─── */}
       <div style={{
         position: 'fixed',
         top: 0,
-        right: 0,
+        left: 0,
         bottom: 0,
-        width: 'min(320px, 85vw)',
-        background: 'rgba(18, 25, 21, 0.98)',
-        backdropFilter: 'blur(24px)',
-        borderLeft: '1.5px solid rgba(201, 168, 76, 0.4)',
-        boxShadow: '-10px 0 35px rgba(0,0,0,0.6)',
+        width: 'min(360px, 88vw)',
+        background: 'linear-gradient(180deg, rgba(16, 24, 19, 0.98) 0%, rgba(10, 16, 12, 0.99) 100%)',
+        backdropFilter: 'blur(28px)',
+        borderRight: '1.5px solid rgba(201, 168, 76, 0.35)',
+        boxShadow: '12px 0 45px rgba(0, 0, 0, 0.75)',
         zIndex: 999,
-        padding: '1.5rem',
+        padding: '1.6rem 1.4rem',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        transform: isOpen ? 'translateX(0)' : 'translateX(105%)',
-        transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+        transform: isOpen ? 'translateX(0)' : 'translateX(-105%)',
+        transition: 'transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1)',
+        overflowY: 'auto'
       }}>
         <div>
-          {/* Yan Panel Başlığı */}
+          {/* Sol Panel Üst Başlık & Kapat Butonu */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginBottom: '1.8rem',
-            paddingBottom: '1rem',
-            borderBottom: '1px solid rgba(143, 164, 134, 0.2)'
+            marginBottom: '1.6rem',
+            paddingBottom: '1.1rem',
+            borderBottom: '1px solid rgba(143, 164, 134, 0.18)'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
               <div style={{
-                width: 34, height: 34, borderRadius: '50%',
-                overflow: 'hidden', border: '1px solid var(--accent-gold)'
+                width: 36,
+                height: 36,
+                borderRadius: '50%',
+                overflow: 'hidden',
+                border: '1.5px solid var(--accent-gold)',
+                boxShadow: '0 0 10px rgba(201, 168, 76, 0.4)'
               }}>
                 <img src="/sunsiree-logo.jpg" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <span style={{ fontFamily: "'Lora', Georgia, serif", color: '#f3efe6', fontSize: '1.05rem', fontWeight: 600 }}>
-                Menü
-              </span>
+              <div>
+                <span style={{ fontFamily: "'Lora', Georgia, serif", color: '#f3efe6', fontSize: '1.08rem', fontWeight: 700, display: 'block', lineHeight: 1.2 }}>
+                  Sunsiree Dünyası
+                </span>
+                <span style={{ fontSize: '0.74rem', color: 'var(--accent-gold)', fontWeight: 500 }}>
+                  Botanik Asistanı
+                </span>
+              </div>
             </div>
 
+            {/* Kapat Butonu */}
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              aria-label="Kapat"
+              aria-label="Menüyü Kapat"
               style={{
-                background: 'rgba(255,255,255,0.08)',
-                border: 'none',
-                color: 'var(--text-secondary)',
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#f3efe6',
                 borderRadius: '50%',
                 width: 36,
                 height: 36,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
               }}
+              onMouseEnter={e => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.25)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'}
             >
-              <X size={20} />
+              <X size={19} />
             </button>
           </div>
 
-          {/* Link Listesi */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+          {/* Menü Başlığı Rozeti */}
+          <div style={{
+            fontSize: '0.72rem',
+            fontWeight: 700,
+            color: 'var(--accent-gold)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+            marginBottom: '0.75rem',
+            paddingLeft: '0.4rem'
+          }}>
+            Kategoriler
+          </div>
+
+          {/* TÜM SEÇENEKLER LİSTESİ */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
@@ -346,56 +305,114 @@ export default function Navbar() {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     padding: '0.85rem 1rem',
-                    borderRadius: 'var(--radius-md)',
+                    borderRadius: '16px',
                     textDecoration: 'none',
-                    fontSize: '0.95rem',
-                    fontWeight: isActive ? 700 : 500,
-                    color: item.highlight ? 'var(--accent-green)' : item.gold ? 'var(--accent-gold)' : isActive ? '#ffffff' : 'var(--text-primary)',
                     background: isActive 
-                      ? 'rgba(255,255,255,0.1)' 
-                      : item.highlight 
-                      ? 'rgba(130, 173, 118, 0.12)' 
-                      : 'rgba(255,255,255,0.03)',
-                    border: item.highlight 
-                      ? '1px solid rgba(130, 173, 118, 0.25)' 
-                      : item.gold 
-                      ? '1px solid rgba(201, 168, 76, 0.25)' 
-                      : '1px solid rgba(143, 164, 134, 0.1)',
-                    transition: 'var(--transition-fast)'
+                      ? 'rgba(229, 169, 60, 0.18)' 
+                      : 'rgba(255, 255, 255, 0.03)',
+                    border: isActive 
+                      ? '1px solid rgba(229, 169, 60, 0.45)' 
+                      : '1px solid rgba(143, 164, 134, 0.12)',
+                    transition: 'all 0.18s ease'
+                  }}
+                  onMouseEnter={e => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.07)';
+                      e.currentTarget.style.borderColor = 'rgba(201, 168, 76, 0.3)';
+                      e.currentTarget.style.transform = 'translateX(3px)';
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                      e.currentTarget.style.borderColor = 'rgba(143, 164, 134, 0.12)';
+                      e.currentTarget.style.transform = 'translateX(0)';
+                    }
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <Icon size={18} />
-                    <span>{item.label}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                    <div style={{
+                      width: 38,
+                      height: 38,
+                      borderRadius: '12px',
+                      background: isActive 
+                        ? 'rgba(229, 169, 60, 0.25)' 
+                        : item.gold 
+                        ? 'rgba(201, 168, 76, 0.12)' 
+                        : item.green 
+                        ? 'rgba(130, 173, 118, 0.15)' 
+                        : 'rgba(255, 255, 255, 0.05)',
+                      color: isActive 
+                        ? '#e5c368' 
+                        : item.gold 
+                        ? 'var(--accent-gold)' 
+                        : item.green 
+                        ? '#82ad76' 
+                        : 'var(--text-secondary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
+                    }}>
+                      <Icon size={19} />
+                    </div>
+
+                    <div>
+                      <div style={{
+                        fontSize: '0.94rem',
+                        fontWeight: isActive ? 700 : 600,
+                        color: isActive ? '#ffffff' : '#f3efe6',
+                        lineHeight: 1.3
+                      }}>
+                        {item.label}
+                      </div>
+                      <div style={{
+                        fontSize: '0.74rem',
+                        color: isActive ? 'var(--accent-gold)' : 'rgba(255, 255, 255, 0.45)',
+                        marginTop: '0.1rem'
+                      }}>
+                        {item.desc}
+                      </div>
+                    </div>
                   </div>
-                  <ChevronRight size={16} style={{ color: 'var(--text-tertiary)' }} />
+
+                  <ChevronRight size={17} style={{ color: isActive ? '#e5c368' : 'rgba(255, 255, 255, 0.25)' }} />
                 </Link>
               );
             })}
           </div>
         </div>
 
-        {/* Yan Panel Alt Kısmı: Büyük Eylem Butonu */}
-        <div style={{ paddingTop: '1.5rem', borderTop: '1px solid rgba(143, 164, 134, 0.18)' }}>
+        {/* ─── SOL MENÜ ALT KISMI: HIZLI EYLEM & BİLGİ KARTI ─── */}
+        <div style={{ paddingTop: '1.25rem', borderTop: '1px solid rgba(143, 164, 134, 0.16)', marginTop: '1.5rem' }}>
           <Link
             href="/identify"
             onClick={() => setIsOpen(false)}
-            className="btn btn-primary"
             style={{
               width: '100%',
               padding: '0.85rem',
-              fontSize: '0.95rem',
+              borderRadius: '14px',
+              border: 'none',
+              background: 'linear-gradient(135deg, #82ad76, #6da060)',
+              color: '#0e1811',
+              fontSize: '0.92rem',
               fontWeight: 700,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.5rem',
-              boxShadow: '0 6px 20px rgba(130, 173, 118, 0.35)'
+              textDecoration: 'none',
+              boxShadow: '0 6px 20px rgba(130, 173, 118, 0.35)',
+              transition: 'all 0.2s ease'
             }}
           >
             <Camera size={18} />
-            <span>Fotoğraf Yükle & Tanı</span>
+            <span>Bitkiyi Tanı</span>
           </Link>
+
+          <div style={{ textAlign: 'center', marginTop: '0.9rem', fontSize: '0.74rem', color: 'rgba(255, 255, 255, 0.35)' }}>
+            Sunsiree Bitki Dünyası © 2026
+          </div>
         </div>
       </div>
     </>

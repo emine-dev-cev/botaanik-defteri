@@ -17,8 +17,33 @@ model User {
   updated_at DateTime @updatedAt
 }
 
+model NotebookFolder {
+  id         String          @id @default(uuid())
+  name       String
+  icon       String          @default("folder")  // folder, star, trash, leaf, flower
+  color      String          @default("#c9a84c")  // Hex color for folder icon
+  is_system  Boolean         @default(false)       // true = can't be deleted (Tümü, Son Silinenler)
+  sort_order Int             @default(0)
+  created_at DateTime        @default(now())
+  updated_at DateTime        @updatedAt
+  entries    NotebookEntry[]
+  files      NotebookFile[]
+}
+
+model NotebookFile {
+  id         String          @id @default(uuid())
+  name       String
+  file_url   String
+  file_type  String?         // pdf, doc, image, excel, archive, code, other
+  file_size  Int?            // boyutu (bayt)
+  folder_id  String?
+  folder     NotebookFolder? @relation(fields: [folder_id], references: [id])
+  created_at DateTime        @default(now())
+  updated_at DateTime        @updatedAt
+}
+
 model NotebookEntry {
-  id           String   @id @default(uuid())
+  id           String          @id @default(uuid())
   title        String
   plant_name   String?
   location     String?
@@ -26,8 +51,13 @@ model NotebookEntry {
   photo_url    String?
   drawing_data String?  // Base64 drawing canvas snapshot
   tags         String?
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  folder_id    String?
+  folder       NotebookFolder? @relation(fields: [folder_id], references: [id])
+  is_pinned    Boolean         @default(false)
+  is_deleted   Boolean         @default(false)
+  deleted_at   DateTime?
+  created_at   DateTime        @default(now())
+  updated_at   DateTime        @updatedAt
 }
 
 model Plant {
