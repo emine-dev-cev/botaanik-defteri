@@ -255,8 +255,8 @@ export default function PlantsDirectory() {
       ) : plants.length > 0 ? (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '1.6rem'
+          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+          gap: '1.4rem'
         }}>
           {plants.map((plant) => {
             const plantImg = plant.images?.[0]?.image_url;

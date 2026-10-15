@@ -1538,8 +1538,8 @@ export default function PlantSelectPage() {
             ) : matchedPlants.length > 0 ? (
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-                gap: '1.5rem'
+                gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+                gap: '1.25rem'
               }}>
                 {matchedPlants.map(plant => {
                   const plantImg = plant.images?.[0]?.image_url;
